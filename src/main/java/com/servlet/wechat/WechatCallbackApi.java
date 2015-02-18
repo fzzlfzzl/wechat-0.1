@@ -25,38 +25,18 @@ public class WechatCallbackApi extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(WechatCallbackApi.class
 			.getName());
 
-	/**
-	 * Constructor of the object.
-	 */
 	public WechatCallbackApi() {
 		super();
 	}
 
-	/**
-	 * Destruction of the servlet. <br>
-	 */
 	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
+		super.destroy();
 	}
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 * 
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logger.info("接收请求:" + request.getQueryString());
+		logger.info("Get Request:" + request.getQueryString());
+
 		// 微信加密签名
 		String signature = request.getParameter("signature");
 		// 随机字符串
@@ -66,6 +46,12 @@ public class WechatCallbackApi extends HttpServlet {
 		// 随机数
 		String nonce = request.getParameter("nonce");
 
+		if (null == signature || null == echostr || null == timestamp
+				|| null == nonce) {
+			logger.warn("Invalid Param");
+			response.getWriter().print("Invalid Param");
+			return;
+		}
 		String[] str = { TOKEN, timestamp, nonce };
 		Arrays.sort(str); // 字典序排序
 		String bigStr = str[0] + str[1] + str[2];
@@ -74,26 +60,11 @@ public class WechatCallbackApi extends HttpServlet {
 
 		// 确认请求来至微信
 		if (digest.equals(signature)) {
-			logger.info("发送响应:" + echostr);
+			logger.info("Get Response:" + echostr);
 			response.getWriter().print(echostr);
 		}
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 * 
-	 * This method is called when a form has its tag value method equals to
-	 * post.
-	 * 
-	 * @param request
-	 *            the request send by the client to the server
-	 * @param response
-	 *            the response send by the server to the client
-	 * @throws ServletException
-	 *             if an error occurred
-	 * @throws IOException
-	 *             if an error occurred
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -119,12 +90,6 @@ public class WechatCallbackApi extends HttpServlet {
 		}
 	}
 
-	/**
-	 * Initialization of the servlet. <br>
-	 * 
-	 * @throws ServletException
-	 *             if an error occurs
-	 */
 	public void init() throws ServletException {
 	}
 
