@@ -15,4 +15,8 @@ public class Util {
 		}
 		return buffer.toString();
 	}
+
+	public static boolean isNullOrEmpty(String str) {
+		return null == str || str.length() == 0;
+	}
 }
