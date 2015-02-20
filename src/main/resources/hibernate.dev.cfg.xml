@@ -21,10 +21,10 @@
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://sqld.duapp.com:4050/IeSSkUaEwdLIOuyKGUtp
+			jdbc:mysql://127.0.0.1:3306/wechat
 		</property>
-		<property name="connection.username">Scu0HwGwVF0ov4ES7SGuH6Cj</property>
-		<property name="connection.password">6OqgyPLkVIXrdmh8Rl8MpZ3YFKAfZ33U</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
 		<property name="connection.driver_class">
 			com.mysql.jdbc.Driver
 		</property>
