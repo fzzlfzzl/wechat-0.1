@@ -1,9 +1,9 @@
 package com.service.message;
 
-import com.util.XmlObject;
+import com.service.message.reply.IMessageReply;
 
 public interface IMessageHandler {
 
-	public XmlObject handleMessage(XmlObject reqObject);
+	public IMessageReply handleMessage(IMessage message);
 
 }

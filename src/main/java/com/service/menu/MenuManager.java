@@ -3,7 +3,7 @@ package com.service.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.service.WeChat;
+import com.service.WeChatService;
 import com.service.menu.impl.ButtonMenu;
 import com.test.tools.JsonObject;
 import com.util.HttpClient;
@@ -33,7 +33,7 @@ public class MenuManager {
 	public static void registMenu() {
 		List<IMenu> list = getMenuList();
 		String urlFmt = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
-		String url = String.format(urlFmt, WeChat.getAccessToken());
+		String url = String.format(urlFmt, WeChatService.getAccessToken());
 		JsonObject obj = new JsonObject();
 		try {
 			for (int i = 0; i < list.size(); i++) {

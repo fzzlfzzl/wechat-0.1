@@ -28,6 +28,10 @@ public class User {
 	@JoinColumn(name = "aid")
 	private List<Address> addressList = new ArrayList<Address>();
 
+	@OneToMany
+	@JoinColumn(name = "mid")
+	private List<MessageHistory> messageHistory = new ArrayList<MessageHistory>();
+
 	public int getId() {
 		return id;
 	}
@@ -59,4 +63,13 @@ public class User {
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
 	}
+
+	public List<MessageHistory> getMessageHistory() {
+		return messageHistory;
+	}
+
+	public void setMessageHistory(List<MessageHistory> messageHistory) {
+		this.messageHistory = messageHistory;
+	}
+
 }

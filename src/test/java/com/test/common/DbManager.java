@@ -1,4 +1,4 @@
-package com.test.util;
+package com.test.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +20,10 @@ public class DbManager {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void truncateTables(){
+		
 	}
 
 	public boolean execute(String sql) {

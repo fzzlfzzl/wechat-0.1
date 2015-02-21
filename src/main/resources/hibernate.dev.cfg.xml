@@ -32,5 +32,7 @@
 
 		<mapping class="com.dao.bean.User" />
 		<mapping class="com.dao.bean.Address" />
+		<mapping class="com.dao.bean.MessageHistory" />
+		<mapping class="com.dao.bean.OrderHistory" />
 	</session-factory>
 </hibernate-configuration>

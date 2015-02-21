@@ -1,4 +1,4 @@
-package com.servlet.wechat;
+package com.service.wechat;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.service.message.IMessage;
 import com.service.message.IMessageHandler;
-import com.service.message.factory.MessageHandlerFactory;
+import com.service.message.factory.MessageFactory;
+import com.service.message.reply.IMessageReply;
 import com.util.EncoderHelper;
 import com.util.Util;
 import com.util.XmlObject;
@@ -77,9 +79,7 @@ public class WechatCallbackApi extends HttpServlet {
 			logger.info("Request:" + req);
 
 			XmlObject reqObject = XmlObject.toXmlObject(req);
-			String type = reqObject.get("MsgType").getText();
-			IMessageHandler handler = MessageHandlerFactory.getHandler(type);
-			XmlObject resObject = handler.handleMessage(reqObject);
+			XmlObject resObject = service(reqObject);
 
 			String res = resObject.toXmlString();
 			logger.info("Response:" + res);
@@ -88,6 +88,14 @@ public class WechatCallbackApi extends HttpServlet {
 			e.printStackTrace();
 			out.print("");
 		}
+	}
+
+	public XmlObject service(XmlObject reqObject) {
+		IMessage message = MessageFactory.createMessage(reqObject);
+		IMessageHandler handler = message.getHandler();
+		IMessageReply reply = handler.handleMessage(message);
+		XmlObject resObject = reply.getResponse();
+		return resObject;
 	}
 
 	public void init() throws ServletException {

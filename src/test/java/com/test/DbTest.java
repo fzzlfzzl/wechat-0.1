@@ -1,8 +1,6 @@
-package com.test.dao.bean;
+package com.test;
 
 import static org.junit.Assert.*;
-
-import java.sql.ResultSet;
 
 import org.hibernate.Session;
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.junit.Test;
 import com.dao.bean.User;
 import com.dao.db.HibernateUtil;
 import com.test.common.Common;
-import com.test.util.DbManager;
 
 public class DbTest {
 
@@ -37,21 +34,21 @@ public class DbTest {
 		}
 	}
 
-	@Test
-	public void baeMysqlTest() {
-		try {
-			String ip = "sqld.duapp.com";
-			int port = 4050;
-			String table = "IeSSkUaEwdLIOuyKGUtp";
-			String user = "Scu0HwGwVF0ov4ES7SGuH6Cj";
-			String pwd = "6OqgyPLkVIXrdmh8Rl8MpZ3YFKAfZ33U";
-			DbManager manager = new DbManager(ip, port, table, user, pwd);
-			ResultSet result = manager.executeQuery("show tables");
-			while (result.next()) {
-				Common.getLogger().info(result.getString(1));
-			}
-		} catch (Exception e) {
-			fail();
-		}
-	}
+	// @Test
+	// public void baeMysqlTest() {
+	// try {
+	// String ip = "sqld.duapp.com";
+	// int port = 4050;
+	// String table = "IeSSkUaEwdLIOuyKGUtp";
+	// String user = "Scu0HwGwVF0ov4ES7SGuH6Cj";
+	// String pwd = "6OqgyPLkVIXrdmh8Rl8MpZ3YFKAfZ33U";
+	// DbManager manager = new DbManager(ip, port, table, user, pwd);
+	// ResultSet result = manager.executeQuery("show tables");
+	// while (result.next()) {
+	// Common.getLogger().info(result.getString(1));
+	// }
+	// } catch (Exception e) {
+	// fail();
+	// }
+	// }
 }

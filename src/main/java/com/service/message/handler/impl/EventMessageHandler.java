@@ -1,12 +1,11 @@
-package com.service.message.impl;
+package com.service.message.handler.impl;
 
 import org.apache.log4j.Logger;
 
-import com.service.message.base.MessageHandler;
 import com.util.WeChatMenu;
 import com.util.XmlObject;
 
-public class EventMessageHandler extends MessageHandler {
+public class EventMessageHandler extends TextMessageHandler {
 
 	private static Logger logger = Logger.getLogger(EventMessageHandler.class);
 

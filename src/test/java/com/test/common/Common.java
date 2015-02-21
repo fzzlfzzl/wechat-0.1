@@ -2,7 +2,6 @@ package com.test.common;
 
 import org.apache.log4j.Logger;
 
-import com.test.util.DbManager;
 
 public class Common {
 
