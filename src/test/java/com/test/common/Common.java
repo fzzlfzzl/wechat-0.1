@@ -2,7 +2,6 @@ package com.test.common;
 
 import org.apache.log4j.Logger;
 
-
 public class Common {
 
 	private static Logger logger = Logger.getLogger("Test");
@@ -23,12 +22,4 @@ public class Common {
 		return logger;
 	}
 
-	public static void dropTables() {
-		try {
-			dbManager.execute("drop table address");
-			dbManager.execute("drop table user");
-		} catch (Exception e) {
-
-		}
-	}
 }

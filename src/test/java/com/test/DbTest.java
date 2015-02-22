@@ -14,14 +14,8 @@ public class DbTest {
 	@Test
 	public void sanityTest() {
 		try {
-			Common.dropTables();
-		} catch (Exception e) {
-			Common.getLogger().info("Drop Table Fail, Maybe No Table");
-		}
-		try {
+			Common.getDbManager().dropTables();
 			Session session = HibernateUtil.openSession();
-			assertNotNull(session);
-
 			session.beginTransaction();
 			User user = new User();
 			user.setOpenId("openid");
