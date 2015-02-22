@@ -4,30 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.service.menu.IMenu;
-import com.service.menu.IMenuHandler;
-import com.util.XmlObject;
+import com.service.message.IMessage;
+import com.service.message.impl.ClickEventMessage;
 
 public class ButtonMenu implements IMenu {
 
-	private String id;
-	private String name;
-	private IMenuHandler handler;
+	private ClickEventMessage message;
 	private ArrayList<IMenu> list = new ArrayList<IMenu>();
 
-	public ButtonMenu(String id, String name, IMenuHandler handler) {
-		this.id = id;
-		this.name = name;
-		this.handler = handler;
+	public ButtonMenu(IMessage message) {
+		if (!(message instanceof ClickEventMessage)) {
+			throw new RuntimeException("Not ClickEventMessage");
+		}
+		this.message = (ClickEventMessage) message;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return message.getName();
 	}
 
 	@Override
-	public String getKey() {
-		return id;
+	public String getEventKey() {
+		return message.getEventKey();
 	}
 
 	@Override
@@ -43,11 +42,6 @@ public class ButtonMenu implements IMenu {
 	@Override
 	public List<IMenu> getChildren() {
 		return list;
-	}
-
-	@Override
-	public void handle(XmlObject req, XmlObject res) {
-		handler.handle(req, res);
 	}
 
 }

@@ -9,7 +9,7 @@ public class MessageReply implements IMessageReply {
 	protected XmlObject res = null;
 	protected IMessage message = null;
 
-	public void setMessage(IMessage message) {
+	public MessageReply(IMessage message) {
 		this.res = new XmlObject("xml");
 		this.message = message;
 		initRes();

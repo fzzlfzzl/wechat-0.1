@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.service.WeChatService;
+import com.service.WechatService;
 
 @Controller
 @RequestMapping("/wechat")
@@ -20,7 +20,7 @@ public class WechatController {
 	public void serviceGet(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		try {
-			WeChatService.doGet(request, response);
+			WechatService.doGet(request, response);
 		} catch (Exception e) {
 			logger.warn(e);
 		}
@@ -30,7 +30,7 @@ public class WechatController {
 	public void servicePost(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		try {
-			WeChatService.doPost(request, response);
+			WechatService.doPost(request, response);
 		} catch (Exception e) {
 			logger.warn(e);
 		}

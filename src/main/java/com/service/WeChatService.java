@@ -18,36 +18,16 @@ import com.util.HttpClient;
 import com.util.Util;
 import com.util.XmlObject;
 
-public class WeChatService {
+public class WechatService {
 	private static String TOKEN = "jiuwubaodu";
 	private static String APP_SECRET = "a22d71808ae9b3c7f9d926c7967a2c0c";
 	private static String APP_ID = "wxddd3064d4314479d";
 
 	private static String ACCESS_TOKEN = "MGgXQYyh-18ORaFjR69-ZXPcIIeHe2HaIo5-xWplGr6NHlgOplCNv3vdEpxUt8eNi6l0af5YYMViU6zg7hKywLSt1c906YKZN56oSd3g-DM";
 
-	private static Logger logger = Logger.getLogger(WeChatService.class);
+	private static Logger logger = Logger.getLogger(WechatService.class);
 
-	public static String getAccessTokenUrl() {
-		String urlFmt = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
-		String url = String.format(urlFmt, APP_ID, APP_SECRET);
-		return url;
-	}
-
-	public static String getAccessToken() {
-		return ACCESS_TOKEN;
-	}
-
-	public static String getUserInfo(String openId) throws Exception {
-		String urlFmt = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
-		String url = String.format(urlFmt, ACCESS_TOKEN, openId);
-		HttpClient client = new HttpClient(url);
-		String res = client.get();
-		JsonObject obj = JsonObject.toJsonObject(res);
-		return obj.get("nickname").toString();
-	}
-
-	public static void doGet(HttpServletRequest request,
-			HttpServletResponse response) {
+	public static void doGet(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			logger.info("Get Request:" + request.getQueryString());
 			String signature = request.getParameter("signature");
@@ -75,8 +55,7 @@ public class WeChatService {
 		}
 	}
 
-	public static void doPost(HttpServletRequest request,
-			HttpServletResponse response) {
+	public static void doPost(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.setContentType("text/html");
 			request.setCharacterEncoding("UTF-8");
@@ -105,9 +84,26 @@ public class WeChatService {
 		return resObject;
 	}
 
-	private static boolean invalidParam(String signature, String echostr,
-			String timestamp, String nonce) {
-		return null == signature || null == echostr || null == timestamp
-				|| null == nonce;
+	public static String getAccessTokenUrl() {
+		String urlFmt = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
+		String url = String.format(urlFmt, APP_ID, APP_SECRET);
+		return url;
+	}
+
+	public static String getAccessToken() {
+		return ACCESS_TOKEN;
+	}
+
+	public static String getUserInfo(String openId) throws Exception {
+		String urlFmt = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
+		String url = String.format(urlFmt, ACCESS_TOKEN, openId);
+		HttpClient client = new HttpClient(url);
+		String res = client.get();
+		JsonObject obj = JsonObject.toJsonObject(res);
+		return obj.get("nickname").toString();
+	}
+
+	private static boolean invalidParam(String signature, String echostr, String timestamp, String nonce) {
+		return null == signature || null == echostr || null == timestamp || null == nonce;
 	}
 }

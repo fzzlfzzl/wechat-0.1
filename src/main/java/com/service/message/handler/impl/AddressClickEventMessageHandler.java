@@ -5,12 +5,12 @@ import com.service.message.IMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.service.message.reply.impl.TextMessageReply;
 
-public class TextMessageHandler implements IMessageHandler {
+public class AddressClickEventMessageHandler implements IMessageHandler {
 
 	@Override
 	public IMessageReply handleMessage(IMessage message) {
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent("你好," + message.getFromUserName());
+		reply.setContent("请输入地址");
 		return reply;
 	}
 }

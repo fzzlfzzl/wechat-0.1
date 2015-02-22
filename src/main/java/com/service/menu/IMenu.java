@@ -2,8 +2,6 @@ package com.service.menu;
 
 import java.util.List;
 
-import com.util.XmlObject;
-
 public interface IMenu {
 
 	public static final String TYPE_CLICK = "click";
@@ -14,13 +12,11 @@ public interface IMenu {
 
 	public String getName();
 
-	public String getKey();
+	public String getEventKey();
 
 	public String getType();
 
 	public void addChild(IMenu menu);
 
 	public List<IMenu> getChildren();
-
-	void handle(XmlObject req, XmlObject res);
 }
