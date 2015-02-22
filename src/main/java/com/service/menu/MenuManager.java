@@ -15,7 +15,7 @@ public class MenuManager {
 
 	public static void initMenu() {
 		IMenu menu = null;
-		menu = new ButtonMenu(new AddressClickEventMessage());
+		menu = new ButtonMenu(new AddressClickEventMessage(null));
 		menuList.add(menu);
 	}
 
@@ -29,8 +29,6 @@ public class MenuManager {
 
 	public static void registMenu() {
 		List<IMenu> list = getMenuList();
-		String urlFmt = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s";
-		String url = String.format(urlFmt, WechatService.getAccessToken());
 		JsonObject obj = new JsonObject();
 		try {
 			for (int i = 0; i < list.size(); i++) {
@@ -38,8 +36,7 @@ public class MenuManager {
 				obj.get("button").get(i).get("name").set(list.get(i).getName());
 				obj.get("button").get(i).get("key").set(list.get(i).getEventKey());
 			}
-
-			HttpClient client = new HttpClient(url);
+			HttpClient client = new HttpClient(WechatService.getRegistMenuUrl());
 			String res = client.post(obj.toJsonString());
 			System.out.println(res);
 		} catch (Exception e) {

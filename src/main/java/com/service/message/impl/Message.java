@@ -7,8 +7,7 @@ public abstract class Message implements IMessage {
 
 	protected XmlObject req = null;
 
-	@Override
-	public void setRequest(XmlObject req) {
+	public Message(XmlObject req) {
 		this.req = req;
 	}
 

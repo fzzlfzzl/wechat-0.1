@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import com.util.Util;
+
 public class HibernateUtil {
 
 	private static Logger logger = Logger.getLogger(HibernateUtil.class);
@@ -14,15 +16,14 @@ public class HibernateUtil {
 
 	private static SessionFactory buildSessionFactory() {
 		try {
-			if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			if (Util.isDevelopEnvironment()) {
 				logger.info("Development Environment");
-				return new Configuration().configure("hibernate.dev.cfg.xml")
-						.buildSessionFactory(
-								new StandardServiceRegistryBuilder().build());
+				return new Configuration().configure("hibernate.dev.cfg.xml").buildSessionFactory(
+						new StandardServiceRegistryBuilder().build());
 			} else {
 				logger.info("Online Environment");
-				return new Configuration().configure().buildSessionFactory(
-						new StandardServiceRegistryBuilder().build());
+				return new Configuration().configure()
+						.buildSessionFactory(new StandardServiceRegistryBuilder().build());
 			}
 		} catch (Throwable ex) {
 			System.err.println("Initial SessionFactory creation failed." + ex);

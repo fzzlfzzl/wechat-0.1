@@ -19,6 +19,15 @@ public class ServiceTest {
 		assertEquals(resObj.get("FromUserName").getText(), "gh_5cb711bbf02b");
 	}
 
+	@Test
+	public void addressMenuTest() {
+		XmlObject req = new XmlObject("xml");
+		req.get("ToUserName").setCDATA("gh_5cb711bbf02b");
+		req.get("FromUserName").setCDATA("o5bFts7d47KVX7OEIoK_DY9WJ_xY");
+		req.get("CreateTime").setText("" + System.currentTimeMillis());
+		req.get("MsgType").setCDATA("event");
+
+	}
 	/*
 	 * public static String txt =
 	 * "<xml><ToUserName><![CDATA[gh_5cb711bbf02b]]></ToUserName><MsgId>6116423240939715753</MsgId><Content><![CDATA[??]]></Content><MsgType><![CDATA[text]]></MsgType><CreateTime>1424090760</CreateTime><FromUserName><![CDATA[o5bFts7d47KVX7OEIoK_DY9WJ_xY]]></FromUserName></xml>"

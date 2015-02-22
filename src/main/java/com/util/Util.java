@@ -19,4 +19,8 @@ public class Util {
 	public static boolean isNullOrEmpty(String str) {
 		return null == str || str.length() == 0;
 	}
+
+	public static boolean isDevelopEnvironment() {
+		return System.getProperty("os.name").toLowerCase().contains("windows");
+	}
 }

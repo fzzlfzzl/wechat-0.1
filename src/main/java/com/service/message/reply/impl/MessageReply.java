@@ -19,7 +19,6 @@ public class MessageReply implements IMessageReply {
 		res.get("ToUserName").setCDATA(message.getFromUserName());
 		res.get("FromUserName").setCDATA(message.getToUserName());
 		res.get("CreateTime").setText(message.getCreateTime());
-		res.get("MsgType").setCDATA(message.getMsgType());
 	}
 
 	@Override

@@ -7,6 +7,7 @@ public class TextMessageReply extends MessageReply implements ITextMessageReply 
 
 	public TextMessageReply(IMessage message) {
 		super(message);
+		res.get("MsgType").setCDATA("text");
 	}
 
 	@Override

@@ -2,9 +2,13 @@ package com.service.message.impl;
 
 import com.service.message.IClickEventMessage;
 import com.service.message.IMessage;
+import com.util.XmlObject;
 
-public abstract class ClickEventMessage extends Message implements
-		IClickEventMessage {
+public abstract class ClickEventMessage extends Message implements IClickEventMessage {
+
+	public ClickEventMessage(XmlObject req) {
+		super(req);
+	}
 
 	@Override
 	public String getMsgType() {

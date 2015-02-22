@@ -1,9 +1,9 @@
-package com.test.common;
+package com.test.Util;
 
 import com.service.WechatService;
 import com.util.HttpClient;
 
-public class Util {
+public class AccessToken {
 
 	public static void main(String[] args) throws Exception {
 		String url = WechatService.getAccessTokenUrl();
