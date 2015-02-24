@@ -1,16 +1,13 @@
 package com.dao.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -22,15 +19,12 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String openId = null;
 
-	private String phone = null;
+	private String telephone = null;
 
-	@OneToMany
-	@JoinColumn(name = "aid")
-	private List<Address> addressList = new ArrayList<Address>();
+	private String address = null;
 
-	@OneToMany
-	@JoinColumn(name = "mid")
-	private List<MessageHistory> messageHistory = new ArrayList<MessageHistory>();
+	@OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private Message lastMessage = null;
 
 	public int getId() {
 		return id;
@@ -48,28 +42,28 @@ public class User {
 		this.openId = openId;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
-	public List<Address> getAddressList() {
-		return addressList;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public List<MessageHistory> getMessageHistory() {
-		return messageHistory;
+	public Message getLastMessage() {
+		return lastMessage;
 	}
 
-	public void setMessageHistory(List<MessageHistory> messageHistory) {
-		this.messageHistory = messageHistory;
+	public void setLastMessage(Message lastMessage) {
+		this.lastMessage = lastMessage;
 	}
 
 }

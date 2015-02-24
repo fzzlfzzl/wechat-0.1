@@ -1,15 +1,15 @@
 package com.service.message.reply.impl;
 
-import com.service.message.IMessage;
+import com.service.message.bean.IMessageBean;
 import com.service.message.reply.IMessageReply;
 import com.util.XmlObject;
 
 public class MessageReply implements IMessageReply {
 
 	protected XmlObject res = null;
-	protected IMessage message = null;
+	protected IMessageBean message = null;
 
-	public MessageReply(IMessage message) {
+	public MessageReply(IMessageBean message) {
 		this.res = new XmlObject("xml");
 		this.message = message;
 		initRes();

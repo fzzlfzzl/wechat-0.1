@@ -29,24 +29,12 @@ public class DbManager {
 		}
 	}
 
-	public void truncateTables() {
-		boolean finish = false;
-		while (!finish) {
-			finish = true;
-			for (String table : getTables()) {
-				String sql = String.format("truncate table %s", table);
-				if (!execute(sql)) {
-					finish = false;
-				}
-			}
-		}
-	}
-
 	public void dropTables() {
 		boolean finish = false;
 		while (!finish) {
 			finish = true;
-			for (String table : getTables()) {
+			List<String> tables = getTables();
+			for (String table : tables) {
 				String sql = String.format("drop table %s", table);
 				if (!execute(sql)) {
 					finish = false;
@@ -77,7 +65,7 @@ public class DbManager {
 			return ret;
 		} catch (SQLException e) {
 			if (needCatchException(e)) {
-				logger.warn("Execute Sql Fail:" + e.getLocalizedMessage());
+				logger.warn(String.format("Execute Sql Fail: %s (%s)", sql, e.getLocalizedMessage()));
 				return false;
 			}
 			throw new RuntimeException(e);
@@ -85,7 +73,7 @@ public class DbManager {
 	}
 
 	private boolean needCatchException(SQLException e) {
-		return e.getSQLState() == "23000" || e.getSQLState() == "42000";
+		return e.getSQLState().equals("23000") || e.getSQLState().equals("42000");
 	}
 
 	public ResultSet executeQuery(String sql) {

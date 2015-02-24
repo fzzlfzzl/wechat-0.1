@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dao.bean.Address;
 import com.dao.bean.User;
 import com.dao.db.HibernateUtil;
 
@@ -28,9 +27,7 @@ public class SiteController {
 			Session session = HibernateUtil.openSession();
 			session.beginTransaction();
 			User user = new User();
-			Address addr = new Address();
-			addr.setAddress("" + System.currentTimeMillis());
-			user.getAddressList().add(addr);
+			session.save(user);
 			session.getTransaction().commit();
 			session.close();
 			ret.addObject("result", "succ");

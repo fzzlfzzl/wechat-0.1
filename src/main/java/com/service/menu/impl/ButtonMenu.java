@@ -4,29 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.service.menu.IMenu;
-import com.service.message.IMessage;
-import com.service.message.impl.ClickEventMessage;
+import com.service.message.handler.IMenuMessageHandler;
 
 public class ButtonMenu implements IMenu {
 
-	private ClickEventMessage message;
+	IMenuMessageHandler handler = null;
 	private ArrayList<IMenu> list = new ArrayList<IMenu>();
 
-	public ButtonMenu(IMessage message) {
-		if (!(message instanceof ClickEventMessage)) {
-			throw new RuntimeException("Not ClickEventMessage");
-		}
-		this.message = (ClickEventMessage) message;
+	public ButtonMenu(IMenuMessageHandler handler) {
+		this.handler = handler;
 	}
 
 	@Override
 	public String getName() {
-		return message.getName();
+		return handler.getName();
 	}
 
 	@Override
 	public String getEventKey() {
-		return message.getEventKey();
+		return handler.getEventKey();
 	}
 
 	@Override

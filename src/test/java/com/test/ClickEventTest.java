@@ -3,7 +3,7 @@ package com.test;
 import org.junit.Test;
 
 import com.service.WechatService;
-import com.service.message.impl.AddressClickEventMessage;
+import com.service.message.handler.impl.AddressClickEventMessageHandler;
 import com.util.XmlObject;
 import static org.junit.Assert.*;
 
@@ -25,7 +25,7 @@ public class ClickEventTest {
 
 	@Test
 	public void addressMenuTest() {
-		XmlObject req = createClickEventMessage(AddressClickEventMessage.EVENT_KEY);
+		XmlObject req = createClickEventMessage(AddressClickEventMessageHandler.EVENT_KEY);
 		XmlObject res = WechatService.service(req);
 		System.out.println(res.toXmlString());
 		assertEquals(res.get("FromUserName").getText(), APP_NAME);

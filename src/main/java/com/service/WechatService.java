@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.service.message.IMessage;
-import com.service.message.IMessageHandler;
+import com.service.message.bean.IMessageBean;
 import com.service.message.factory.MessageFactory;
+import com.service.message.factory.MessageHandlerFactory;
+import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.test.tools.JsonObject;
-import com.util.EncoderHelper;
 import com.util.HttpClient;
 import com.util.Util;
 import com.util.XmlObject;
@@ -43,7 +43,7 @@ public class WechatService {
 			String[] str = { TOKEN, timestamp, nonce };
 			Arrays.sort(str); // 字典序排序
 			String bigStr = str[0] + str[1] + str[2];
-			String digest = EncoderHelper.sha1(bigStr).toLowerCase();
+			String digest = Util.sha1(bigStr).toLowerCase();
 			if (digest.equals(signature)) {
 				logger.info("Get Response:" + echostr);
 				response.getWriter().print(echostr);
@@ -77,8 +77,8 @@ public class WechatService {
 	}
 
 	public static XmlObject service(XmlObject reqObject) {
-		IMessage message = MessageFactory.createMessage(reqObject);
-		IMessageHandler handler = message.getHandler();
+		IMessageBean message = MessageFactory.createMessage(reqObject);
+		IMessageHandler handler = MessageHandlerFactory.createMessageHandler(message);
 		IMessageReply reply = handler.handleMessage(message);
 		XmlObject resObject = reply.getResponse();
 		return resObject;
