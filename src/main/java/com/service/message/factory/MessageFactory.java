@@ -1,12 +1,20 @@
 package com.service.message.factory;
 
-import com.service.message.bean.IMessageBean;
-import com.service.message.bean.impl.NetworkMessageBean;
+import com.dao.entity.Message;
 import com.util.XmlObject;
 
 public class MessageFactory {
 
-	public static IMessageBean createMessage(XmlObject req) {
-		return new NetworkMessageBean(req);
+	public static Message createMessage(XmlObject req) {
+		Message message = new Message();
+		message.setContent(req.get("Content").getText());
+		message.setCreateTime(req.get("CreateTime").getText());
+		message.setEvent(req.get("Event").getText());
+		message.setEventKey(req.get("EventKey").getText());
+		message.setMsgId(req.get("MsgId").getText());
+		message.setMsgType(req.get("MsgType").getText());
+		message.setFromUserName(req.get("FromUserName").getText());
+		message.setToUserName(req.get("ToUserName").getText());
+		return message;
 	}
 }

@@ -1,30 +1,31 @@
 package com.service.message.factory;
 
-import com.service.message.bean.IMessageBean;
+import com.dao.entity.Message;
+import com.service.Constraint;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.handler.impl.AddressClickEventMessageHandler;
 import com.service.message.handler.impl.TextMessageHandler;
 
 public class MessageHandlerFactory {
 
-	public static IMessageHandler createMessageHandler(IMessageBean message) {
+	public static IMessageHandler createMessageHandler(Message message) {
 		String msgType = message.getMsgType();
-		if (IMessageBean.TYPE_TEXT.equals(msgType))
+		if (Constraint.TYPE_TEXT.equals(msgType))
 			return createTextMessageHandler(message);
-		if (IMessageBean.TYPE_EVENT.equals(msgType))
+		if (Constraint.TYPE_EVENT.equals(msgType))
 			return createEventMessageHandler(message);
 		throw new RuntimeException("Unknown Message");
 	}
 
-	private static IMessageHandler createEventMessageHandler(IMessageBean message) {
+	private static IMessageHandler createEventMessageHandler(Message message) {
 		String event = message.getEvent();
-		if (IMessageBean.TYPE_CLICK.equals(event)) {
+		if (Constraint.TYPE_CLICK.equals(event)) {
 			return createClickEventMessageHandler(message);
 		}
 		throw new RuntimeException("Unknown Message");
 	}
 
-	private static IMessageHandler createClickEventMessageHandler(IMessageBean message) {
+	private static IMessageHandler createClickEventMessageHandler(Message message) {
 		String eventKey = message.getEventKey();
 		if (AddressClickEventMessageHandler.EVENT_KEY.equals(eventKey)) {
 			return new AddressClickEventMessageHandler();
@@ -32,7 +33,7 @@ public class MessageHandlerFactory {
 		throw new RuntimeException("Unknown Message");
 	}
 
-	private static IMessageHandler createTextMessageHandler(IMessageBean message) {
+	private static IMessageHandler createTextMessageHandler(Message message) {
 		return new TextMessageHandler();
 	}
 }

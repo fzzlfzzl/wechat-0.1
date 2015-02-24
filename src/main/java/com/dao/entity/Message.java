@@ -1,6 +1,5 @@
-package com.dao.bean;
+package com.dao.entity;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +12,9 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id = 0;
 
-	@Column(nullable = false, unique = true)
-	private String openId = null;
+	private String fromUserName = null;
+
+	private String toUserName = null;
 
 	private String msgId = null;
 
@@ -45,11 +45,11 @@ public class Message {
 	}
 
 	public String getOpenId() {
-		return openId;
+		return fromUserName;
 	}
 
 	public void setOpenId(String openId) {
-		this.openId = openId;
+		this.fromUserName = openId;
 	}
 
 	public String getCreateTime() {
@@ -90,6 +90,22 @@ public class Message {
 
 	public void setMsgId(String msgId) {
 		this.msgId = msgId;
+	}
+
+	public String getToUserName() {
+		return toUserName;
+	}
+
+	public void setToUserName(String toUserName) {
+		this.toUserName = toUserName;
+	}
+
+	public String getFromUserName() {
+		return fromUserName;
+	}
+
+	public void setFromUserName(String fromUserName) {
+		this.fromUserName = fromUserName;
 	}
 
 }

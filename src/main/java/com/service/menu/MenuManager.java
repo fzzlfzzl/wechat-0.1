@@ -3,7 +3,7 @@ package com.service.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.service.WechatService;
+import com.service.WechatHelper;
 import com.service.menu.impl.ButtonMenu;
 import com.service.message.handler.impl.AddressClickEventMessageHandler;
 import com.test.tools.JsonObject;
@@ -36,7 +36,7 @@ public class MenuManager {
 				obj.get("button").get(i).get("name").set(list.get(i).getName());
 				obj.get("button").get(i).get("key").set(list.get(i).getEventKey());
 			}
-			HttpClient client = new HttpClient(WechatService.getRegistMenuUrl());
+			HttpClient client = new HttpClient(WechatHelper.getRegistMenuUrl());
 			String res = client.post(obj.toJsonString());
 			System.out.println(res);
 		} catch (Exception e) {

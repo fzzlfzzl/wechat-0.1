@@ -31,7 +31,7 @@
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
 
-		<mapping class="com.dao.bean.User" />
-		<mapping class="com.dao.bean.Message" />
+		<mapping class="com.dao.entity.User" />
+		<mapping class="com.dao.entity.Message" />
 	</session-factory>
 </hibernate-configuration>

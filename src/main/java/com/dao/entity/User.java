@@ -1,4 +1,4 @@
-package com.dao.bean;
+package com.dao.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

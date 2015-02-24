@@ -2,12 +2,15 @@ package com.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.dao.bean.Message;
-import com.dao.bean.User;
 import com.dao.db.HibernateUtil;
+import com.dao.entity.Message;
+import com.dao.entity.User;
+import com.dao.impl.UserDao;
 import com.test.common.Common;
 
 public class DbTest {
@@ -108,16 +111,31 @@ public class DbTest {
 				session.close();
 			}
 
-			// {
-			// Session session = HibernateUtil.openSession();
-			// session.beginTransaction();
-			// Message message = (Message) session.load(Message.class,
-			// messageid);
-			// session.delete(message);
-			// session.getTransaction().commit();
-			// session.close();
-			// }
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
+	@Test
+	public void userDaoTest() {
+		try {
+			Common.getDbManager().dropTables();
+			User user1 = new User();
+			user1.setOpenId("1");
+			UserDao.save(user1);
+			User user2 = new User();
+			user2.setOpenId("2");
+			UserDao.save(user2);
+			List<User> list = UserDao.list();
+			assertEquals(list.size(), 2);
+			assertEquals(list.get(0).getId(), user1.getId());
+			assertEquals(list.get(0).getOpenId(), user1.getOpenId());
+			assertEquals(list.get(1).getId(), user2.getId());
+			assertEquals(list.get(1).getOpenId(), user2.getOpenId());
+
+			User user = UserDao.load("2");
+			assertEquals(user.getId(), user2.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

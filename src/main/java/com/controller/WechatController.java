@@ -17,8 +17,7 @@ public class WechatController {
 	private static Logger logger = Logger.getLogger(WechatController.class);
 
 	@RequestMapping(value = "/service", method = RequestMethod.GET)
-	public void serviceGet(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public void serviceGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			WechatService.doGet(request, response);
 		} catch (Exception e) {
@@ -27,8 +26,7 @@ public class WechatController {
 	}
 
 	@RequestMapping(value = "/service", method = RequestMethod.POST)
-	public void servicePost(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public void servicePost(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			WechatService.doPost(request, response);
 		} catch (Exception e) {
