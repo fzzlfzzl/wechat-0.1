@@ -6,8 +6,8 @@ import java.util.List;
 import com.service.WechatHelper;
 import com.service.menu.impl.ButtonMenu;
 import com.service.message.handler.impl.AddressClickEventMessageHandler;
-import com.test.tools.JsonObject;
 import com.util.HttpClient;
+import com.util.JsonObject;
 
 public class MenuManager {
 
