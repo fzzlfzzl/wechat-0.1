@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.w3c.dom.Document;
 
+import com.util.LoggerHelper;
 import com.util.Util;
 import com.util.XmlObject;
 
@@ -18,14 +19,15 @@ public class HibernateUtil {
 	private static Logger logger = Logger.getLogger(HibernateUtil.class);
 
 	private static String defaultPath = "hibernate.cfg.xml";
-	private static SessionFactory sessionFactory = buildSessionFactory();
+	private static SessionFactory sessionFactory = null;// buildSessionFactory();
 
 	private static SessionFactory buildSessionFactory() {
 		try {
 			Configuration configuration = new Configuration();
 			if (Util.isDevelopEnvironment()) {
 				logger.info("Development Environment");
-				configuration.configure(getDevelopConfig());
+				Document developConfig = getDevelopConfig();
+				configuration.configure(developConfig);
 			} else {
 				logger.info("Online Environment");
 				configuration.configure(defaultPath);
@@ -35,7 +37,7 @@ public class HibernateUtil {
 			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			return sessionFactory;
 		} catch (Exception e) {
-			logger.error("Build Session Factory Fail");
+			LoggerHelper.exception(e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -64,8 +66,15 @@ public class HibernateUtil {
 	}
 
 	public static Session openSession() {
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		return session;
+	}
+
+	private static synchronized SessionFactory getSessionFactory() {
+		if (null == sessionFactory) {
+			sessionFactory = buildSessionFactory();
+		}
+		return sessionFactory;
 	}
 
 }
