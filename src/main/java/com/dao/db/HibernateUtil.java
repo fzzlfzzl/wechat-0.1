@@ -1,12 +1,17 @@
 package com.dao.db;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.util.ConfigHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.w3c.dom.Document;
 
@@ -44,7 +49,7 @@ public class HibernateUtil {
 		String url = "jdbc:mysql://127.0.0.1:3306/wechat";
 		String user = "root";
 		String pwd = "root";
-		InputStream is = ClassLoader.getSystemResourceAsStream(defaultPath);
+		InputStream is = trim(defaultPath);
 		XmlObject obj = XmlObject.toXmlObject(is);
 		XmlObject sessionFactory = obj.get("session-factory");
 		int length = sessionFactory.getLength("property");
@@ -61,6 +66,29 @@ public class HibernateUtil {
 		}
 		logger.info(obj.toXmlString());
 		return XmlObject.Convert.toDocument(obj);
+	}
+
+	private static InputStream trim(String path) throws IOException {
+		InputStream is = ConfigHelper.getResourceAsStream(path);
+		StringBuffer sb = new StringBuffer();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String line = null;
+		boolean trim = false;
+		while ((line = br.readLine()) != null) {
+			if (trim && line.trim().endsWith(">")) {
+				trim = false;
+				continue;
+			} else if (trim) {
+				continue;
+			} else if (line.trim().startsWith("<!DOCTYPE")) {
+				trim = true;
+				continue;
+			} else {
+				sb.append(line);
+			}
+		}
+		ByteArrayInputStream ret = new ByteArrayInputStream(sb.toString().getBytes());
+		return ret;
 	}
 
 	public static Session openSession() {

@@ -7,7 +7,6 @@ import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
 import org.jdom2.CDATA;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -17,8 +16,6 @@ import org.jdom2.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
 public class XmlObject {
-
-	private static Logger logger = Logger.getLogger(XmlObject.class);
 
 	private Document doc;
 	private Element element;
@@ -84,7 +81,6 @@ public class XmlObject {
 		try {
 			document = builder.build(is);
 		} catch (Exception e) {
-			logger.error(e);
 			throw new RuntimeException(e);
 		}
 		return new XmlObject(document.getRootElement(), document);
@@ -94,7 +90,6 @@ public class XmlObject {
 		try {
 			return toXmlObject(new ByteArrayInputStream(xml.getBytes()));
 		} catch (Exception e) {
-			logger.error(e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -114,7 +109,6 @@ public class XmlObject {
 				DocumentBuilder db = dbf.newDocumentBuilder();
 				return db.parse(new InputSource(new StringReader(obj.toXmlString())));
 			} catch (Exception e) {
-				logger.error(e);
 				throw new RuntimeException(e);
 			}
 		}
