@@ -121,7 +121,8 @@ public class DbTest {
 	public void userDaoTest() {
 		try {
 			Common.getDbManager().rebase();
-
+			List<User> list = UserDao.list();
+			int size1 = list.size();
 			String A = "A" + System.currentTimeMillis();
 			String B = "B" + System.currentTimeMillis();
 			User user1 = new User();
@@ -130,12 +131,13 @@ public class DbTest {
 			User user2 = new User();
 			user2.setOpenId(B);
 			UserDao.save(user2);
-			List<User> list = UserDao.list();
-			assertEquals(list.size(), 2);
-			assertEquals(list.get(0).getId(), user1.getId());
-			assertEquals(list.get(0).getOpenId(), user1.getOpenId());
-			assertEquals(list.get(1).getId(), user2.getId());
-			assertEquals(list.get(1).getOpenId(), user2.getOpenId());
+			list = UserDao.list();
+			int size2 = list.size();
+			assertEquals(2, size2 - size1);
+			assertEquals(list.get(size1).getId(), user1.getId());
+			assertEquals(list.get(size1).getOpenId(), user1.getOpenId());
+			assertEquals(list.get(size1 + 1).getId(), user2.getId());
+			assertEquals(list.get(size1 + 1).getOpenId(), user2.getOpenId());
 
 			User user = UserDao.load(B);
 			assertEquals(user.getId(), user2.getId());
