@@ -10,7 +10,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.w3c.dom.Document;
 
-import com.util.LoggerHelper;
 import com.util.Util;
 import com.util.XmlObject;
 
@@ -37,7 +36,6 @@ public class HibernateUtil {
 			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			return sessionFactory;
 		} catch (Exception e) {
-			LoggerHelper.exception(e);
 			throw new RuntimeException(e);
 		}
 	}

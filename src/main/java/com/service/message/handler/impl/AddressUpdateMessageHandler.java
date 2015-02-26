@@ -1,5 +1,7 @@
 package com.service.message.handler.impl;
 
+import org.apache.log4j.Logger;
+
 import com.dao.entity.Message;
 import com.dao.entity.User;
 import com.dao.impl.UserDao;
@@ -7,9 +9,10 @@ import com.service.Constraint;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.service.message.reply.impl.TextMessageReply;
-import com.util.LoggerHelper;
 
 public class AddressUpdateMessageHandler implements IMessageHandler {
+
+	static Logger logger = Logger.getLogger(AddressClickEventMessageHandler.class);
 
 	@Override
 	public IMessageReply handleMessage(Message message) {
@@ -18,7 +21,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 		}
 		User user = UserDao.load(message.getOpenId());
 		if (null == user) {
-			LoggerHelper.error("Impossible");
+			logger.error("Impossible");
 			return null;
 		}
 		user.setAddress(message.getContent());
