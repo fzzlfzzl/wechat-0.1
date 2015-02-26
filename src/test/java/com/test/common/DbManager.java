@@ -17,17 +17,25 @@ public class DbManager {
 
 	private static String driver = "com.mysql.jdbc.Driver";
 	private Connection conn = null;
-	
-	
+	private boolean rebased = false;
 
-	public DbManager(String ip, int port, String table, String user, String password) {
-		String url = String.format("jdbc:mysql://%s:%d/%s", ip, port, table);
+	private String connString = null;
+
+	public DbManager(String ip, int port, String db, String user, String password) {
+		this.connString = String.format("jdbc:mysql://%s:%d/%s", ip, port, db);
 		try {
 			Class.forName(driver);
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DriverManager.getConnection(connString, user, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
+		}
+	}
+
+	public void rebase() {
+		if (!rebased) {
+			dropTables();
+			rebased = true;
 		}
 	}
 
@@ -60,8 +68,13 @@ public class DbManager {
 	}
 
 	public boolean execute(String sql) {
+		Statement stmt;
 		try {
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		try {
 			stmt.execute(sql);
 			stmt.close();
 			return true;
@@ -71,6 +84,12 @@ public class DbManager {
 				return false;
 			}
 			throw new RuntimeException(e);
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 
@@ -79,13 +98,25 @@ public class DbManager {
 	}
 
 	public ResultSet executeQuery(String sql) {
+		Statement stmt;
 		try {
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		try {
 			ResultSet ret = stmt.executeQuery(sql);
 			stmt.close();
 			return ret;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
+
 }

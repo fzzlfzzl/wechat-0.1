@@ -50,19 +50,4 @@ public class UserDao {
 		}
 	}
 
-	public static void deleteLastMessate(User user) {
-		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
-		try {
-			session.delete(user.getLastMessage());
-			user.setLastMessage(null);
-			session.saveOrUpdate(user);
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			session.getTransaction().rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-	}
 }

@@ -18,11 +18,11 @@ public class DbTest {
 	@Test
 	public void sanityTest() {
 		try {
-			Common.getDbManager().dropTables();
+			Common.getDbManager().rebase();
 			Session session = HibernateUtil.openSession();
 			session.beginTransaction();
 			User user = new User();
-			user.setOpenId("openid");
+			user.setOpenId("" + System.currentTimeMillis());
 			session.save(user);
 			session.getTransaction().commit();
 			session.close();
@@ -37,9 +37,9 @@ public class DbTest {
 		try {
 			int userid = 0;
 			int messageid = 0;
-			String openid = "openid";
+			String openid = "" + System.currentTimeMillis();
 			String content = "content";
-			Common.getDbManager().dropTables();
+			Common.getDbManager().rebase();
 			{
 				// 写入user
 				Session session = HibernateUtil.openSession();
@@ -120,12 +120,15 @@ public class DbTest {
 	@Test
 	public void userDaoTest() {
 		try {
-			Common.getDbManager().dropTables();
+			Common.getDbManager().rebase();
+
+			String A = "A" + System.currentTimeMillis();
+			String B = "B" + System.currentTimeMillis();
 			User user1 = new User();
-			user1.setOpenId("1");
+			user1.setOpenId(A);
 			UserDao.save(user1);
 			User user2 = new User();
-			user2.setOpenId("2");
+			user2.setOpenId(B);
 			UserDao.save(user2);
 			List<User> list = UserDao.list();
 			assertEquals(list.size(), 2);
@@ -134,7 +137,7 @@ public class DbTest {
 			assertEquals(list.get(1).getId(), user2.getId());
 			assertEquals(list.get(1).getOpenId(), user2.getOpenId());
 
-			User user = UserDao.load("2");
+			User user = UserDao.load(B);
 			assertEquals(user.getId(), user2.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
