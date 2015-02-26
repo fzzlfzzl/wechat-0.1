@@ -1,6 +1,6 @@
 package com.service.bean;
 
-import com.service.Constraint;
+import com.service.Const;
 
 public interface IUserBean {
 
@@ -16,7 +16,7 @@ public interface IUserBean {
 
 	public void setAddress(String address);
 
-	public Constraint getLastMessage();
+	public Const getLastMessage();
 
-	public void setLastMessage(Constraint lastMessage);
+	public void setLastMessage(Const lastMessage);
 }

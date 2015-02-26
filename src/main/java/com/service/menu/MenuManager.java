@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.service.WechatHelper;
 import com.service.menu.impl.ButtonMenu;
-import com.service.message.handler.impl.AddressClickEventMessageHandler;
+import com.service.message.handler.impl.AddressMessageHandler;
 import com.util.HttpClient;
 import com.util.JsonObject;
 
@@ -15,7 +15,7 @@ public class MenuManager {
 
 	public static void initMenu() {
 		IMenu menu = null;
-		menu = new ButtonMenu(new AddressClickEventMessageHandler());
+		menu = new ButtonMenu(new AddressMessageHandler());
 		menuList.add(menu);
 	}
 

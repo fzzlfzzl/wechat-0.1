@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.dao.entity.Message;
-import com.dao.entity.User;
-import com.dao.impl.UserDao;
 import com.service.message.factory.MessageFactory;
-import com.service.message.factory.MessageHandlerFactory;
-import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
+import com.service.state.IUserState;
+import com.service.state.UserStatePool;
 import com.util.Util;
 import com.util.XmlObject;
 
@@ -74,25 +72,14 @@ public class WechatService {
 
 	public static XmlObject service(XmlObject reqObject) {
 		Message message = MessageFactory.createMessage(reqObject);
-		User user = UserDao.load(message.getFromUserName());
-		if (user.getLastMessage() != null) {
-			Message lastMessage = user.getLastMessage();
-			UserDao.deleteLastMessate(user);
-			IMessageHandler handler = MessageHandlerFactory.createMessageHandler(lastMessage);
-			if (handler.nextHandler() != null) {
-				IMessageReply reply = handler.nextHandler().handleMessage(message);
-				if (null != reply) {
-					return reply.getResponse();
-				}
-			}
-		}
-		IMessageHandler handler = MessageHandlerFactory.createMessageHandler(message);
-		IMessageReply reply = handler.handleMessage(message);
+		IUserState state = UserStatePool.getUserState(message.getOpenId());
+		IMessageReply reply = state.handleMessage(message);
 		XmlObject resObject = reply.getResponse();
 		return resObject;
 	}
 
-	private static boolean invalidParam(String signature, String echostr, String timestamp, String nonce) {
+	private static boolean invalidParam(String signature, String echostr, String timestamp,
+			String nonce) {
 		return null == signature || null == echostr || null == timestamp || null == nonce;
 	}
 }

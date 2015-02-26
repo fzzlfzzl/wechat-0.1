@@ -12,7 +12,7 @@ public class UserDao {
 	public static User load(String openId) {
 		Session session = HibernateUtil.openSession();
 		try {
-			String query = String.format("from User where openId = %s", openId);
+			String query = String.format("from User where openId = '%s'", openId);
 			List<?> list = session.createQuery(query).list();
 			if (list.size() == 0) {
 				return null;

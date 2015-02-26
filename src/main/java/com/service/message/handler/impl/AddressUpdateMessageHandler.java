@@ -3,37 +3,27 @@ package com.service.message.handler.impl;
 import org.apache.log4j.Logger;
 
 import com.dao.entity.Message;
-import com.dao.entity.User;
-import com.dao.impl.UserDao;
-import com.service.Constraint;
+import com.service.Const;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.service.message.reply.impl.TextMessageReply;
+import com.service.state.IUserState;
 
 public class AddressUpdateMessageHandler implements IMessageHandler {
 
-	static Logger logger = Logger.getLogger(AddressClickEventMessageHandler.class);
+	static Logger logger = Logger.getLogger(AddressMessageHandler.class);
 
 	@Override
-	public IMessageReply handleMessage(Message message) {
-		if (!message.getMsgType().equals(Constraint.TYPE_TEXT)) {
+	public IMessageReply handleMessage(Message message, IUserState state) {
+		if (!message.getMsgType().equals(Const.TYPE_TEXT)) {
+			logger.info("Not Suitable Message");
 			return null;
 		}
-		User user = UserDao.load(message.getOpenId());
-		if (null == user) {
-			logger.error("Impossible");
-			return null;
-		}
-		user.setAddress(message.getContent());
-		UserDao.save(user);
+		state.getUser().setAddress(message.getContent());
+		state.persist();
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent("地址已保存");
+		reply.setContent(Const.RPY_ADDR_UPDT_SUCC);
 		return reply;
-	}
-
-	@Override
-	public IMessageHandler nextHandler() {
-		return null;
 	}
 
 }
