@@ -17,8 +17,6 @@ public class DbManager {
 
 	private static String driver = "com.mysql.jdbc.Driver";
 	private Connection conn = null;
-	
-	
 
 	public DbManager(String ip, int port, String table, String user, String password) {
 		String url = String.format("jdbc:mysql://%s:%d/%s", ip, port, table);
@@ -62,9 +60,9 @@ public class DbManager {
 	public boolean execute(String sql) {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.execute(sql);
+			boolean ret = stmt.execute(sql);
 			stmt.close();
-			return true;
+			return ret;
 		} catch (SQLException e) {
 			if (needCatchException(e)) {
 				logger.warn(String.format("Execute Sql Fail: %s (%s)", sql, e.getLocalizedMessage()));
