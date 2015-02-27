@@ -1,17 +1,17 @@
-package com.web.auth;
+package com.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.service.Const;
+import com.web.auth.Auth;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
-	private static Logger logger = Logger.getLogger(AuthInterceptor.class);
+	// private static Logger logger = Logger.getLogger(AuthInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,

@@ -12,10 +12,11 @@ import com.controller.base.WebController;
 import com.service.Const;
 
 @Controller
-@RequestMapping("/account")
-public class AccountController extends WebController {
+@RequestMapping("/sa")
+public class SuperAdminController extends WebController {
 
-	// private static Logger logger = Logger.getLogger(AccountController.class);
+	// private static Logger logger =
+	// Logger.getLogger(SuperAdminController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,8 +33,9 @@ public class AccountController extends WebController {
 			response.sendRedirect(request.getContextPath() + "/site/index");
 			return null;
 		} else {
-			ModelAndView ret = createNormalModelAndView("login");
+			ModelAndView ret = new ModelAndView("login");
 			return ret;
 		}
 	}
+
 }

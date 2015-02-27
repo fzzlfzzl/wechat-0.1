@@ -1,5 +1,0 @@
-<html>
-<body>
-	<h2>${result}</h2>
-</body>
-</html>
