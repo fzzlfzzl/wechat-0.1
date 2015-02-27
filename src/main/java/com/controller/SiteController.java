@@ -1,8 +1,5 @@
 package com.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -24,8 +21,7 @@ public class SiteController extends WebController {
 
 	@Auth
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
 		try {
 			Session session = HibernateUtil.openSession();

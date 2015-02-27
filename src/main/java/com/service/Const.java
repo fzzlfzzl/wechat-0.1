@@ -19,7 +19,8 @@ public interface Const {
 	// 请求
 	public static final String REQ_YES = "是";
 
-	// session
-	public static final String SES_LOGIN = "LOGIN";
+	// auth
+	public static final String AUTH_LOGIN = "LOGIN";
+	public static final String AUTH_SA_LOGIN = "SA_LOGIN";
 
 }
