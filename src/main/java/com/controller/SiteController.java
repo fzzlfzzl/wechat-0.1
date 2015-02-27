@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dao.db.HibernateUtil;
 import com.dao.entity.User;
 import com.util.ExceptionLogger;
+import com.web.auth.Auth;
 
 @Controller
 @RequestMapping("/site")
@@ -20,6 +21,7 @@ public class SiteController {
 
 	private static Logger logger = Logger.getLogger(SiteController.class);
 
+	@Auth
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -28,7 +30,7 @@ public class SiteController {
 			Session session = HibernateUtil.openSession();
 			session.beginTransaction();
 			User user = new User();
-			user.setOpenId("openid");
+			user.setOpenId("" + System.currentTimeMillis());
 			session.save(user);
 			session.getTransaction().commit();
 			session.close();
