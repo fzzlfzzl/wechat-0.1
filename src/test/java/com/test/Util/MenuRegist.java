@@ -1,4 +1,4 @@
-package com.test.Util;
+package com.test.util;
 
 import com.service.menu.MenuManager;
 
