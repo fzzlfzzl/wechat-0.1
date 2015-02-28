@@ -33,5 +33,6 @@
 
 		<mapping class="com.dao.entity.User" />
 		<mapping class="com.dao.entity.Message" />
+		<mapping class="com.dao.entity.Admin" />
 	</session-factory>
 </hibernate-configuration>

@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Auth {
+public @interface AuthAdmin {
 	boolean validate() default true;
 }

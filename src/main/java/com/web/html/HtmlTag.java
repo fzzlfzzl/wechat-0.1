@@ -3,14 +3,18 @@ package com.web.html;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlTag implements IRenderable {
+import com.view.View;
+
+public class HtmlTag extends View {
 
 	private String tag;
-	private CssClass css = new CssClass();
-	private String id;
 	private String type;
+	private String id;
+	private CssClass css = new CssClass();
+	private String href;
 	private String name;
 	private String value;
+	private String target;
 	private String content;
 
 	private List<HtmlTag> children = new ArrayList<HtmlTag>();
@@ -43,6 +47,14 @@ public class HtmlTag implements IRenderable {
 		this.type = type;
 	}
 
+	public void setHref(String href) {
+		this.href = href;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -61,6 +73,8 @@ public class HtmlTag implements IRenderable {
 		renderAttribute(sb, "type", type);
 		renderAttribute(sb, "id", id);
 		renderClass(sb);
+		renderAttribute(sb, "href", href);
+		renderAttribute(sb, "target", target);
 		renderAttribute(sb, "name", name);
 		renderAttribute(sb, "value", value);
 		sb.append(">");
@@ -111,13 +125,6 @@ public class HtmlTag implements IRenderable {
 		if (null == tag) {
 			throw new RuntimeException("Tag Not Set");
 		}
-	}
-
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		render(sb);
-		return sb.toString();
 	}
 
 	/**
@@ -210,6 +217,40 @@ public class HtmlTag implements IRenderable {
 		Submit() {
 			setTag("input");
 			setType("submit");
+		}
+	}
+
+	public static A a(String href) {
+		A ret = new A();
+		ret.setHref(href);
+		return ret;
+	}
+
+	public static class A extends HtmlTag {
+		A() {
+			setTag("a");
+		}
+	}
+
+	public static Ul ul() {
+		Ul ret = new Ul();
+		return ret;
+	}
+
+	public static class Ul extends HtmlTag {
+		Ul() {
+			setTag("ul");
+		}
+	}
+
+	public static Li li() {
+		Li ret = new Li();
+		return ret;
+	}
+
+	public static class Li extends HtmlTag {
+		Li() {
+			setTag("li");
 		}
 	}
 }

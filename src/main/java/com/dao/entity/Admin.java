@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.util.Util;
-
 @Entity
 public class Admin {
 
@@ -16,7 +14,7 @@ public class Admin {
 	private int id = 0;
 
 	@Column(nullable = false, unique = true)
-	private String username = null;
+	private String name = null;
 
 	@Column(nullable = false)
 	private String password = null;
@@ -29,14 +27,6 @@ public class Admin {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -45,8 +35,12 @@ public class Admin {
 		this.password = password;
 	}
 
-	public void setPlainPassword(String password) {
-		this.password = Util.sha1(password);
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

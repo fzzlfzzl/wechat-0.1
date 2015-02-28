@@ -3,7 +3,9 @@ package com.web.html;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlArray implements IRenderable {
+import com.view.View;
+
+public class HtmlArray extends View {
 
 	private List<HtmlTag> tags = new ArrayList<HtmlTag>();
 
@@ -17,12 +19,4 @@ public class HtmlArray implements IRenderable {
 			tag.render(sb);
 		}
 	}
-
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		render(sb);
-		return sb.toString();
-	}
-
 }
