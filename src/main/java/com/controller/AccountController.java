@@ -7,6 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.controller.base.WebController;
 import com.web.auth.AuthUtil;
+import com.web.html.HtmlTag;
+import com.web.html.HtmlArray;
 
 @Controller
 @RequestMapping("/account")
@@ -17,6 +19,14 @@ public class AccountController extends WebController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGet() throws Exception {
 		ModelAndView ret = createNormalModelAndView("login");
+		HtmlArray arr = new HtmlArray();
+		HtmlTag input = HtmlTag.inputText("user");
+		arr.add(input);
+		input = HtmlTag.inputPassword("pwd");
+		arr.add(input);
+		input = HtmlTag.submit("go");
+		arr.add(input);
+		ret.addObject("input", arr);
 		return ret;
 	}
 

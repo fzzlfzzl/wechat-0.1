@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.util.Util;
+
 @Entity
 public class Admin {
 
@@ -41,6 +43,10 @@ public class Admin {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setPlainPassword(String password) {
+		this.password = Util.sha1(password);
 	}
 
 }
