@@ -2,8 +2,8 @@ package com.service.state;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import com.dao.entity.User;
-import com.dao.impl.UserDao;
+import com.web.dao.entity.User;
+import com.web.dao.impl.UserDao;
 
 public class UserStatePool {
 

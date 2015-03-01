@@ -1,9 +1,9 @@
 package com.service.state;
 
-import com.dao.entity.Message;
-import com.dao.entity.User;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
+import com.web.dao.entity.Message;
+import com.web.dao.entity.User;
 
 public interface IUserState {
 

@@ -1,8 +1,8 @@
 package com.service.message.reply.impl;
 
-import com.dao.entity.Message;
 import com.service.message.reply.IMessageReply;
 import com.util.XmlObject;
+import com.web.dao.entity.Message;
 
 public class MessageReply implements IMessageReply {
 

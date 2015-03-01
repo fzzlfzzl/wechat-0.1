@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.dao.entity.Message;
 import com.service.message.factory.MessageFactory;
 import com.service.message.reply.IMessageReply;
 import com.service.state.IUserState;
 import com.service.state.UserStatePool;
 import com.util.Util;
 import com.util.XmlObject;
+import com.web.dao.entity.Message;
 
 public class WechatService {
 	private static String TOKEN = "jiuwubaodu";

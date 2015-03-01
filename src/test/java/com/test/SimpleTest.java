@@ -8,7 +8,7 @@ import java.io.InputStream;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.dao.db.HibernateUtil;
+import com.web.dao.db.HibernateUtil;
 
 public class SimpleTest {
 

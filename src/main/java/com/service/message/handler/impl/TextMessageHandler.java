@@ -1,11 +1,11 @@
 package com.service.message.handler.impl;
 
-import com.dao.entity.Message;
 import com.service.Const;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.service.message.reply.impl.TextMessageReply;
 import com.service.state.IUserState;
+import com.web.dao.entity.Message;
 
 public class TextMessageHandler implements IMessageHandler {
 

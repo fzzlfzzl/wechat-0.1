@@ -7,11 +7,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.dao.db.HibernateUtil;
-import com.dao.entity.Message;
-import com.dao.entity.User;
-import com.dao.impl.UserDao;
 import com.test.common.Common;
+import com.web.dao.db.HibernateUtil;
+import com.web.dao.entity.Message;
+import com.web.dao.entity.User;
+import com.web.dao.impl.UserDao;
 
 public class DbTest {
 

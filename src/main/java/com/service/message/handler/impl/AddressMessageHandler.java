@@ -1,6 +1,5 @@
 package com.service.message.handler.impl;
 
-import com.dao.entity.Message;
 import com.service.Const;
 import com.service.menu.IMenu;
 import com.service.message.handler.IClickEventMessageHandler;
@@ -8,6 +7,7 @@ import com.service.message.handler.IMenuMessageHandler;
 import com.service.message.reply.IMessageReply;
 import com.service.message.reply.impl.TextMessageReply;
 import com.service.state.IUserState;
+import com.web.dao.entity.Message;
 
 public class AddressMessageHandler implements IClickEventMessageHandler, IMenuMessageHandler {
 

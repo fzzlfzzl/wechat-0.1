@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.web.html.HtmlTag;
+import com.web.view.html.HtmlTag;
 
 public class HtmlTagTest {
 

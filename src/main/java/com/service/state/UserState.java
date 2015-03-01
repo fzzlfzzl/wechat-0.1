@@ -1,11 +1,11 @@
 package com.service.state;
 
-import com.dao.entity.Message;
-import com.dao.entity.User;
-import com.dao.impl.UserDao;
 import com.service.message.factory.MessageHandlerFactory;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.reply.IMessageReply;
+import com.web.dao.entity.Message;
+import com.web.dao.entity.User;
+import com.web.dao.impl.UserDao;
 
 public class UserState implements IUserState {
 

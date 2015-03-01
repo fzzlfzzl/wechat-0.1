@@ -1,10 +1,10 @@
 package com.service.message.factory;
 
-import com.dao.entity.Message;
 import com.service.Const;
 import com.service.message.handler.IMessageHandler;
 import com.service.message.handler.impl.AddressMessageHandler;
 import com.service.message.handler.impl.TextMessageHandler;
+import com.web.dao.entity.Message;
 
 public class MessageHandlerFactory {
 

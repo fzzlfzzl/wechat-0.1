@@ -1,7 +1,7 @@
 package com.service.message.reply.impl;
 
-import com.dao.entity.Message;
 import com.service.message.reply.ITextMessageReply;
+import com.web.dao.entity.Message;
 
 public class TextMessageReply extends MessageReply implements ITextMessageReply {
 

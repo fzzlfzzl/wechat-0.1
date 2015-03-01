@@ -1,7 +1,7 @@
 package com.service.message.factory;
 
-import com.dao.entity.Message;
 import com.util.XmlObject;
+import com.web.dao.entity.Message;
 
 public class MessageFactory {
 
