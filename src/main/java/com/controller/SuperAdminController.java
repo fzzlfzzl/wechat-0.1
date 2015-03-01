@@ -12,6 +12,7 @@ import com.dao.entity.Admin;
 import com.service.web.SuperAdminService;
 import com.view.View;
 import com.view.admin.AdminList;
+import com.web.auth.AuthSuperAdmin;
 
 @Controller
 @RequestMapping("/sa")
@@ -29,14 +30,14 @@ public class SuperAdminController extends WebController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(String user, String pwd) throws Exception {
-		if (service.validate(user, pwd)) {
-			service.login();
+		if (service.login(user, pwd)) {
 			return createRedirectModelAndView("index");
 		} else {
 			return loginGet();
 		}
 	}
 
+	@AuthSuperAdmin
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
@@ -46,12 +47,14 @@ public class SuperAdminController extends WebController {
 		return ret;
 	}
 
+	@AuthSuperAdmin
 	@RequestMapping(value = "/create-admin", method = RequestMethod.GET)
 	public ModelAndView createAdminGet() throws Exception {
 		ModelAndView ret = createNormalModelAndView("create-admin");
 		return ret;
 	}
 
+	@AuthSuperAdmin
 	@RequestMapping(value = "/create-admin", method = RequestMethod.POST)
 	public ModelAndView createAdminPost(String name, String pwd) throws Exception {
 		service.addAdmin(name, pwd);

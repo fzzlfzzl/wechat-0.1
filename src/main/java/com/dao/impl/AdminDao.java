@@ -31,11 +31,18 @@ public class AdminDao {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static Admin load(String name) {
 		Session session = HibernateUtil.openSession();
-		Admin admin = (Admin) session.createQuery("from Admin where name=:name")
-				.setString("name", name).list().get(0);
-		session.close();
-		return admin;
+		try {
+			List list = session.createQuery("from Admin where name=:name").setString("name", name).list();
+			if (list.size() == 0) {
+				return null;
+			} else {
+				return (Admin) list.get(0);
+			}
+		} finally {
+			session.close();
+		}
 	}
 }

@@ -10,12 +10,6 @@ import com.web.context.ApplicationContext;
 
 public class SuperAdminService {
 
-	public boolean validate(String user, String pwd) {
-		if (user.equals("sa") && pwd.equals("111111"))
-			return true;
-		return false;
-	}
-
 	public boolean isLogin() {
 		if (Const.AUTH_SA_LOGIN.equals(ApplicationContext.current().getRequest().getSession()
 				.getAttribute(Const.AUTH_SA_LOGIN))) {
@@ -24,9 +18,13 @@ public class SuperAdminService {
 		return false;
 	}
 
-	public void login() {
-		ApplicationContext.current().getRequest().getSession()
-				.setAttribute(Const.AUTH_SA_LOGIN, Const.AUTH_SA_LOGIN);
+	public boolean login(String user, String pwd) {
+		if (user.equals("sa") && pwd.equals("111111")) {
+			ApplicationContext.current().getRequest().getSession()
+					.setAttribute(Const.AUTH_SA_LOGIN, Const.AUTH_SA_LOGIN);
+			return true;
+		}
+		return false;
 	}
 
 	static void logout() {

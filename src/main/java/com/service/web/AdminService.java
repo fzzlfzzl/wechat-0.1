@@ -18,9 +18,11 @@ public class AdminService {
 
 	public boolean login(String name, String pwd) {
 		Admin admin = AdminDao.load(name);
+		if (admin == null) {
+			return false;
+		}
 		if (Util.sha1(pwd).equals(admin.getPassword())) {
-			ApplicationContext.current().getRequest().getSession()
-					.setAttribute(Const.AUTH_LOGIN, Const.AUTH_LOGIN);
+			ApplicationContext.current().getRequest().getSession().setAttribute(Const.AUTH_LOGIN, Const.AUTH_LOGIN);
 			return true;
 		} else {
 			return false;

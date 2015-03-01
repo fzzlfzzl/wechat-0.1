@@ -9,9 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.controller.base.WebController;
 import com.dao.db.HibernateUtil;
-import com.dao.entity.User;
 import com.util.ExceptionLogger;
-import com.web.auth.AuthAdmin;
 
 @Controller
 @RequestMapping("/site")
@@ -19,17 +17,11 @@ public class SiteController extends WebController {
 
 	private static Logger logger = Logger.getLogger(SiteController.class);
 
-	@AuthAdmin
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
 		try {
 			Session session = HibernateUtil.openSession();
-			session.beginTransaction();
-			User user = new User();
-			user.setOpenId("" + System.currentTimeMillis());
-			session.save(user);
-			session.getTransaction().commit();
 			session.close();
 			ret.addObject("result", "succ");
 		} catch (Exception e) {

@@ -7,8 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.controller.base.WebController;
 import com.service.web.AdminService;
-import com.web.html.HtmlArray;
-import com.web.html.HtmlTag;
+import com.web.auth.AuthAdmin;
 
 @Controller
 @RequestMapping("/admin")
@@ -20,27 +19,20 @@ public class AdminController extends WebController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGet() throws Exception {
 		ModelAndView ret = createNormalModelAndView("login");
-		HtmlArray arr = new HtmlArray();
-		HtmlTag input = HtmlTag.inputText("user");
-		arr.add(input);
-		input = HtmlTag.inputPassword("pwd");
-		arr.add(input);
-		input = HtmlTag.submit("go");
-		arr.add(input);
-		ret.addObject("input", arr);
 		return ret;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(String name, String pwd) throws Exception {
 		if (service.login(name, pwd)) {
-			return createRedirectModelAndView("site/index");
+			return createRedirectModelAndView("index");
 		} else {
 			return loginGet();
 		}
 	}
 
-	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	@AuthAdmin
+	@RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
 	public ModelAndView index(String user, String pwd) throws Exception {
 		return createNormalModelAndView("index");
 	}

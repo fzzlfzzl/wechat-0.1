@@ -32,7 +32,6 @@
 		<bean class="com.web.interceptor.ApplicationContextInterceptor"></bean>
 		<!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
 		<bean class="com.web.interceptor.AuthInterceptor"></bean>
-
 	</mvc:interceptors>
 
 	<mvc:annotation-driven />
