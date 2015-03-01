@@ -41,4 +41,12 @@ public class SuperAdminService {
 		admin.setPassword(Util.sha1(pwd));
 		AdminDao.save(admin);
 	}
+
+	public void deleteAdmin(int id) {
+		AdminDao.delete(id);
+	}
+
+	public void deleteAdmin(Admin admin) {
+		deleteAdmin(admin.getId());
+	}
 }

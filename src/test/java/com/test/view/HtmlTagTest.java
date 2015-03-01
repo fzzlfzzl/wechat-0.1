@@ -1,4 +1,4 @@
-package com.test;
+package com.test.view;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

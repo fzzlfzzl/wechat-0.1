@@ -50,12 +50,14 @@ public class AdminDao {
 		Session session = HibernateUtil.openSession();
 		try {
 			session.beginTransaction();
-			Admin admin = new Admin();
-			admin.setId(id);
-			session.delete(admin);
+			session.createQuery("delete from Admin where id=:id").setInteger("id", id).executeUpdate();
 			session.getTransaction().commit();
 		} finally {
 			session.close();
 		}
+	}
+
+	public static void delete(Admin admin) {
+		delete(admin.getId());
 	}
 }

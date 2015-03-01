@@ -42,7 +42,6 @@ public class WebController {
 		String url = null;
 		if (isSelfView(view)) {
 			url = String.format("%s/%s/%s", context.getRequest().getContextPath(), thisController(), view);
-
 		} else {
 			url = String.format("%s/%s", context.getRequest().getContextPath(), view);
 		}
@@ -54,8 +53,14 @@ public class WebController {
 		return null;
 	}
 
-	protected ModelAndView createForwardGetModelAndView(String view) {
-		String url = String.format("forward:%s", view);
+	protected ModelAndView createForwardModelAndView(String view) {
+		IApplicationContext context = ApplicationContext.current();
+		String url = null;
+		if (isSelfView(view)) {
+			url = String.format("forward:/%s/%s", thisController(), view);
+		} else {
+			url = String.format("forward:/%s", view);
+		}
 		return new ModelAndView(url);
 	}
 

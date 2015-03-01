@@ -3,6 +3,7 @@ package com.web.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +13,7 @@ import com.web.dao.entity.Admin;
 import com.web.interceptor.annotation.AuthSuperAdmin;
 import com.web.service.SuperAdminService;
 import com.web.view.View;
-import com.web.view.admin.AdminList;
+import com.web.view.admin.AdminListView;
 
 @Controller
 @RequestMapping("/sa")
@@ -42,8 +43,8 @@ public class SuperAdminController extends WebController {
 	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
 		List<Admin> list = service.getAdminList();
-		View view = new AdminList(list);
-		ret.addObject("adminList", view);
+		View view = new AdminListView(list);
+		ret.addObject("adminListView", view);
 		return ret;
 	}
 
@@ -60,4 +61,12 @@ public class SuperAdminController extends WebController {
 		service.addAdmin(name, pwd);
 		return index();
 	}
+
+	@AuthSuperAdmin
+	@RequestMapping(value = "/delete-admin/{id}", method = RequestMethod.GET)
+	public ModelAndView deleteAdmin(@PathVariable Integer id) throws Exception {
+		service.deleteAdmin(id);
+		return createForwardModelAndView("index");
+	}
+
 }

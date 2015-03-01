@@ -6,11 +6,11 @@ import com.web.dao.entity.Admin;
 import com.web.view.View;
 import com.web.view.html.HtmlTag;
 
-public class AdminList extends View {
+public class AdminListView extends View {
 
 	private List<Admin> list;
 
-	public AdminList(List<Admin> list) {
+	public AdminListView(List<Admin> list) {
 		this.list = list;
 	}
 
@@ -20,6 +20,9 @@ public class AdminList extends View {
 		for (Admin admin : list) {
 			HtmlTag li = HtmlTag.li();
 			li.setContent(admin.getName());
+			HtmlTag a = HtmlTag.a("delete-admin/" + admin.getId());
+			a.setContent("delete");
+			li.addChild(a);
 			ul.addChild(li);
 		}
 		ul.render(sb);
