@@ -3,7 +3,7 @@ package com.web.interceptor.context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public interface IApplicationContext {
+public interface IUserContext {
 
 	public HttpServletRequest getRequest();
 

@@ -1,11 +1,12 @@
-package com.web.view.html;
+package com.web.view.composite.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.web.view.View;
+import com.web.view.composite.CompositeView;
 
-public class HtmlTag extends View {
+public class HtmlTag extends CompositeView {
 
 	private String tag;
 	private String type;
@@ -17,7 +18,7 @@ public class HtmlTag extends View {
 	private String target;
 	private String content;
 
-	private List<HtmlTag> children = new ArrayList<HtmlTag>();
+	private List<View> children = new ArrayList<View>();
 
 	protected void setTag(String tag) {
 		this.tag = tag;
@@ -59,7 +60,8 @@ public class HtmlTag extends View {
 		this.content = content;
 	}
 
-	public void addChild(HtmlTag child) {
+	@Override
+	public void addChild(View child) {
 		this.children.add(child);
 	}
 
@@ -81,7 +83,7 @@ public class HtmlTag extends View {
 	}
 
 	private void renderChildren(StringBuffer sb) {
-		for (HtmlTag child : children) {
+		for (View child : children) {
 			child.render(sb);
 		}
 	}

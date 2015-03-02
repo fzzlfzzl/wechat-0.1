@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.web.interceptor.context.ApplicationContext;
+import com.web.interceptor.context.UserContextHandler;
 
 public class ApplicationContextInterceptor extends HandlerInterceptorAdapter {
 
@@ -14,15 +14,16 @@ public class ApplicationContextInterceptor extends HandlerInterceptorAdapter {
 	// Logger.getLogger(ControllerViewInterceptor.class);
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		ApplicationContext.preHandle(request, response);
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+			Object handler) throws Exception {
+		UserContextHandler.preHandle(request, response);
 		return true;
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		ApplicationContext.postHandle(request, response);
+	public void postHandle(HttpServletRequest request, HttpServletResponse response,
+			Object handler, ModelAndView modelAndView) throws Exception {
+		UserContextHandler.postHandle(request, response);
 	}
 
 }

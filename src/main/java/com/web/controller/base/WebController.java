@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.interceptor.context.ApplicationContext;
-import com.web.interceptor.context.IApplicationContext;
+import com.web.interceptor.context.UserContext;
+import com.web.interceptor.context.IUserContext;
 
 public class WebController {
 
@@ -38,7 +38,7 @@ public class WebController {
 	}
 
 	protected ModelAndView createRedirectModelAndView(String view) {
-		IApplicationContext context = ApplicationContext.current();
+		IUserContext context = UserContext.current();
 		String url = null;
 		if (isSelfView(view)) {
 			url = String.format("%s/%s/%s", context.getRequest().getContextPath(), thisController(), view);
@@ -54,7 +54,7 @@ public class WebController {
 	}
 
 	protected ModelAndView createForwardModelAndView(String view) {
-		IApplicationContext context = ApplicationContext.current();
+		IUserContext context = UserContext.current();
 		String url = null;
 		if (isSelfView(view)) {
 			url = String.format("forward:/%s/%s", thisController(), view);
