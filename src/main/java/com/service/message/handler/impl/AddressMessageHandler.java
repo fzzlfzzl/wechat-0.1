@@ -21,11 +21,11 @@ public class AddressMessageHandler implements IClickEventMessageHandler, IMenuMe
 		if (null != state.getUser().getAddress()) {
 			// 已有地址，需要确认
 			state.setNextHandler(new AddressCheckMessageHandler());
-			String content = String.format(Const.RPY_ADDR_CHK, state.getUser().getAddress());
+			String content = String.format(Const.RES_ADDR_CHK, state.getUser().getAddress());
 			reply.setContent(content);
 		} else {
 			// 没有地址，直接填写
-			reply.setContent(Const.RPY_ADDR);
+			reply.setContent(Const.RES_ADDR);
 			state.setNextHandler(new AddressUpdateMessageHandler());
 		}
 		return reply;

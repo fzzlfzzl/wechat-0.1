@@ -22,7 +22,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 		state.getUser().setAddress(message.getContent());
 		state.persist();
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent(Const.RPY_ADDR_UPDT_SUCC);
+		reply.setContent(Const.RES_ADDR_UPDT_SUCC);
 		return reply;
 	}
 

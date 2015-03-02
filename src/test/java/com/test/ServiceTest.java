@@ -55,7 +55,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_NORMAL);
+			assertEquals(res.get("Content").getText(), Const.RES_NORMAL);
 		}
 		{
 			// 点击地址按钮
@@ -66,7 +66,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_ADDR);
+			assertEquals(res.get("Content").getText(), Const.RES_ADDR);
 		}
 		{
 			// 输入地址
@@ -77,7 +77,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_ADDR_UPDT_SUCC);
+			assertEquals(res.get("Content").getText(), Const.RES_ADDR_UPDT_SUCC);
 		}
 		{
 			// 再次点击地址按钮，判断地址
@@ -88,7 +88,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RPY_ADDR_CHK, addr1);
+			String check = String.format(Const.RES_ADDR_CHK, addr1);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -100,7 +100,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_ADDR);
+			assertEquals(res.get("Content").getText(), Const.RES_ADDR);
 		}
 		{
 			// 输入地址2
@@ -111,7 +111,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_ADDR_UPDT_SUCC);
+			assertEquals(res.get("Content").getText(), Const.RES_ADDR_UPDT_SUCC);
 		}
 		{
 			// 再次点击地址按钮,判断地址2
@@ -122,7 +122,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RPY_ADDR_CHK, addr2);
+			String check = String.format(Const.RES_ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -134,7 +134,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RPY_ADDR_CHK, addr2);
+			String check = String.format(Const.RES_ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -146,7 +146,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RPY_NORMAL);
+			assertEquals(res.get("Content").getText(), Const.RES_NORMAL);
 		}
 		{
 			// 再次点击地址按钮,依然是2,不更新
@@ -157,7 +157,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RPY_ADDR_CHK, addr2);
+			String check = String.format(Const.RES_ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 public interface IMenu {
 
 	public static final String TYPE_CLICK = "click";
+	public static final String TYPE_VIEW = "view";
 
 	public static final String NAME_ADDRESS = "地址";
 

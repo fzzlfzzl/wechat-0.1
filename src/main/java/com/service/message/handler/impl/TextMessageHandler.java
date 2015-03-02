@@ -12,7 +12,7 @@ public class TextMessageHandler implements IMessageHandler {
 	@Override
 	public IMessageReply handleMessage(Message message, IUserState state) {
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent(Const.RPY_NORMAL);
+		reply.setContent(Const.RES_NORMAL);
 		return reply;
 	}
 

@@ -12,6 +12,7 @@ import com.service.message.factory.MessageFactory;
 import com.service.message.reply.IMessageReply;
 import com.service.state.IUserState;
 import com.service.state.UserStatePool;
+import com.util.ExceptionLogger;
 import com.util.Util;
 import com.util.XmlObject;
 import com.web.dao.entity.Message;
@@ -42,10 +43,10 @@ public class WechatService {
 				logger.info("Get Response:" + echostr);
 				response.getWriter().print(echostr);
 			} else {
-				logger.warn("Invalid signature");
+				logger.error("Invalid signature");
 			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			logger.error(new ExceptionLogger(e));
 		}
 	}
 
@@ -66,7 +67,7 @@ public class WechatService {
 			logger.info("Response:" + res);
 			out.print(res);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			logger.error(new ExceptionLogger(e));
 		}
 	}
 

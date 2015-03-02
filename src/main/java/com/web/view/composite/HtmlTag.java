@@ -1,10 +1,9 @@
-package com.web.view.composite.impl;
+package com.web.view.composite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.web.view.View;
-import com.web.view.composite.CompositeView;
 
 public class HtmlTag extends CompositeView {
 

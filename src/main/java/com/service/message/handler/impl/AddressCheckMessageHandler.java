@@ -30,7 +30,7 @@ public class AddressCheckMessageHandler implements IClickEventMessageHandler, IM
 		}
 		state.setNextHandler(new AddressUpdateMessageHandler());
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent(Const.RPY_ADDR);
+		reply.setContent(Const.RES_ADDR);
 		return reply;
 	}
 

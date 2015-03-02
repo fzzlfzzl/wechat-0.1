@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.web.dao.entity.Admin;
 import com.web.view.View;
-import com.web.view.composite.impl.HtmlTag;
+import com.web.view.composite.HtmlTag;
 import com.web.view.template.TemplateViewExpression;
 
 public class AdminListView extends View {

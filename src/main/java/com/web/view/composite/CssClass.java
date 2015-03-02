@@ -1,4 +1,4 @@
-package com.web.view.composite.impl;
+package com.web.view.composite;
 
 public class CssClass {
 
