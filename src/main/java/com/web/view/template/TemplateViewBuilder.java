@@ -8,8 +8,8 @@ public class TemplateViewBuilder {
 		this.html = html;
 	}
 
-	public TemplateViewBuilder setParam(String key, String value) {
-		html = html.replaceAll("\\$" + key, value);
+	public TemplateViewBuilder setParam(String key, Object value) {
+		html = html.replaceAll("\\$" + key, value.toString());
 		return this;
 	}
 

@@ -5,9 +5,12 @@ import java.util.List;
 import com.web.dao.entity.Admin;
 import com.web.view.View;
 import com.web.view.composite.impl.HtmlTag;
+import com.web.view.template.TemplateViewExpression;
 
 public class AdminListView extends View {
 
+	private static String html = "<li>$name<a href='delete-admin/$id'>delete</a></li>";
+	private static TemplateViewExpression exp = TemplateViewExpression.compile(html);
 	private List<Admin> list;
 
 	public AdminListView(List<Admin> list) {
@@ -18,11 +21,8 @@ public class AdminListView extends View {
 	public void render(StringBuffer sb) {
 		HtmlTag ul = HtmlTag.ul();
 		for (Admin admin : list) {
-			HtmlTag li = HtmlTag.li();
-			li.setContent(admin.getName());
-			HtmlTag a = HtmlTag.a("delete-admin/" + admin.getId());
-			a.setContent("delete");
-			li.addChild(a);
+			View li = exp.createBuilder().setParam("name", admin.getName())
+					.setParam("id", admin.getId()).build();
 			ul.addChild(li);
 		}
 		ul.render(sb);

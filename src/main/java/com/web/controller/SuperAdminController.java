@@ -39,7 +39,7 @@ public class SuperAdminController extends WebController {
 	}
 
 	@AuthSuperAdmin
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = { "/index", "", "/" }, method = RequestMethod.GET)
 	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
 		List<Admin> list = service.getAdminList();
@@ -59,14 +59,14 @@ public class SuperAdminController extends WebController {
 	@RequestMapping(value = "/create-admin", method = RequestMethod.POST)
 	public ModelAndView createAdminPost(String name, String pwd) throws Exception {
 		service.addAdmin(name, pwd);
-		return index();
+		return createRedirectModelAndView("index");
 	}
 
 	@AuthSuperAdmin
 	@RequestMapping(value = "/delete-admin/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteAdmin(@PathVariable Integer id) throws Exception {
 		service.deleteAdmin(id);
-		return createForwardModelAndView("index");
+		return createRedirectModelAndView("index");
 	}
 
 }

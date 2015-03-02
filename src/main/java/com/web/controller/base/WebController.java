@@ -41,7 +41,8 @@ public class WebController {
 		IUserContext context = UserContext.current();
 		String url = null;
 		if (isSelfView(view)) {
-			url = String.format("%s/%s/%s", context.getRequest().getContextPath(), thisController(), view);
+			url = String.format("%s/%s/%s", context.getRequest().getContextPath(),
+					thisController(), view);
 		} else {
 			url = String.format("%s/%s", context.getRequest().getContextPath(), view);
 		}
@@ -54,7 +55,6 @@ public class WebController {
 	}
 
 	protected ModelAndView createForwardModelAndView(String view) {
-		IUserContext context = UserContext.current();
 		String url = null;
 		if (isSelfView(view)) {
 			url = String.format("forward:/%s/%s", thisController(), view);
