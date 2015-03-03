@@ -40,6 +40,7 @@ public class DbTest {
 		try {
 			int userid = 0;
 			int messageid = 0;
+			// int messageid2 = 0;
 			String openid = "" + System.currentTimeMillis();
 			String content = "content";
 			Common.getDbManager().rebase();
@@ -70,6 +71,7 @@ public class DbTest {
 				Message message = new Message();
 				message.setContent(content);
 				message.setOpenId(user.getOpenId());
+				user.getMessages().add(message);
 				session.save(user);
 
 				session.getTransaction().commit();
@@ -89,6 +91,24 @@ public class DbTest {
 				// 通过user获取message
 				Session session = HibernateUtil.openSession();
 				User user = (User) session.load(User.class, userid);
+				assertEquals(user.getMessages().get(0).getId(), messageid);
+				session.close();
+			}
+			{
+				// 加入第二个message
+				Message message = new Message();
+				Session session = HibernateUtil.openSession();
+				session.beginTransaction();
+				User user = (User) session.load(User.class, userid);
+				user.getMessages().add(message);
+				session.getTransaction().commit();
+				session.close();
+			}
+			{
+				// 查询出两个message
+				Session session = HibernateUtil.openSession();
+				User user = (User) session.load(User.class, userid);
+				assertEquals(user.getMessages().size(), 2);
 				session.close();
 			}
 			{
@@ -96,6 +116,10 @@ public class DbTest {
 				Session session = HibernateUtil.openSession();
 				session.beginTransaction();
 				User user = (User) session.load(User.class, userid);
+				for (Message message : user.getMessages()) {
+					session.delete(message);
+				}
+				user.getMessages().clear();
 				session.getTransaction().commit();
 				session.close();
 			}
