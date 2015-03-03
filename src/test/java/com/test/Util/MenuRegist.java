@@ -1,6 +1,6 @@
 package com.test.util;
 
-import com.service.menu.MenuManager;
+import com.wechat.menu.MenuManager;
 
 public class MenuRegist {
 

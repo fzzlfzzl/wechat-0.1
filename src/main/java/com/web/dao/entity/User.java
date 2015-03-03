@@ -1,12 +1,15 @@
 package com.web.dao.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,7 +27,7 @@ public class User {
 	private String address = null;
 
 	@OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	private Message lastMessage = null;
+	private List<Message> messages = new ArrayList<Message>();
 
 	public int getId() {
 		return id;
@@ -58,12 +61,12 @@ public class User {
 		this.address = address;
 	}
 
-	public Message getLastMessage() {
-		return lastMessage;
+	public List<Message> getMessages() {
+		return messages;
 	}
 
-	public void setLastMessage(Message lastMessage) {
-		this.lastMessage = lastMessage;
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 
 }

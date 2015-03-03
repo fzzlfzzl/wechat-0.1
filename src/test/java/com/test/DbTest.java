@@ -1,6 +1,9 @@
 package com.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -67,7 +70,6 @@ public class DbTest {
 				Message message = new Message();
 				message.setContent(content);
 				message.setOpenId(user.getOpenId());
-				user.setLastMessage(message);
 				session.save(user);
 
 				session.getTransaction().commit();
@@ -87,9 +89,6 @@ public class DbTest {
 				// 通过user获取message
 				Session session = HibernateUtil.openSession();
 				User user = (User) session.load(User.class, userid);
-				Message message = user.getLastMessage();
-				assertEquals(messageid, message.getId());
-				assertEquals(content, message.getContent());
 				session.close();
 			}
 			{
@@ -97,11 +96,8 @@ public class DbTest {
 				Session session = HibernateUtil.openSession();
 				session.beginTransaction();
 				User user = (User) session.load(User.class, userid);
-				session.delete(user.getLastMessage());
-				user.setLastMessage(null);
 				session.getTransaction().commit();
 				session.close();
-				assertNull(user.getLastMessage());
 			}
 			{
 				// 通过原有的messageid拿不到

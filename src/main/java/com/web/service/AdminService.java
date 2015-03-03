@@ -1,10 +1,10 @@
 package com.web.service;
 
-import com.service.Const;
 import com.util.Util;
 import com.web.dao.entity.Admin;
 import com.web.dao.impl.AdminDao;
 import com.web.interceptor.context.UserContext;
+import com.wechat.Const;
 
 public class AdminService {
 

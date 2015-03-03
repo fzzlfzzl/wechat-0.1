@@ -28,6 +28,8 @@ public class Message {
 
 	private String eventKey = null;
 
+	private String url = null;
+
 	public int getId() {
 		return id;
 	}
@@ -106,6 +108,14 @@ public class Message {
 
 	public void setFromUserName(String fromUserName) {
 		this.fromUserName = fromUserName;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }
