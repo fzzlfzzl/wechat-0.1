@@ -15,15 +15,15 @@ public class UserRedirectMessageReply extends MessageReply {
 	}
 
 	public void setTitle(String str) {
-		res.get("Artitles").get("item").get("Title").setCDATA(str);
+		res.get("Articles").get("item").get("Title").setCDATA(str);
 	}
 
 	public void setDescription(String str) {
-		res.get("Artitles").get("item").get("Description").setCDATA(str);
+		res.get("Articles").get("item").get("Description").setCDATA(str);
 	}
 
 	public void setPicUrl(String str) {
-		res.get("Artitles").get("item").get("PicUrl").setCDATA(str);
+		res.get("Articles").get("item").get("PicUrl").setCDATA(str);
 	}
 
 	public void setUrl(String str) {
@@ -31,6 +31,6 @@ public class UserRedirectMessageReply extends MessageReply {
 			str = str.substring(0, str.length() - 1);
 		}
 		String url = String.format("%s?openid=%s", str, message.getOpenId());
-		res.get("Artitles").get("item").get("Url").setCDATA(url);
+		res.get("Articles").get("item").get("Url").setCDATA(url);
 	}
 }

@@ -20,7 +20,7 @@ public class OrderMessageHandler implements IClickEventMessageHandler, IMenuMess
 		UserRedirectMessageReply reply = new UserRedirectMessageReply(message);
 		reply.setDescription("description");
 		reply.setTitle("title");
-		reply.setPicUrl(Config.getHost() + "img/order.jpg");
+		reply.setPicUrl(Config.getHost() + "img/banner.jpg");
 		reply.setUrl(Config.getHost() + "order/index");
 		return reply;
 	}

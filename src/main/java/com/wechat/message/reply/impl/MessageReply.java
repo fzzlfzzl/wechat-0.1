@@ -19,7 +19,7 @@ public abstract class MessageReply implements IMessageReply {
 		res.get("ToUserName").setCDATA(message.getFromUserName());
 		res.get("FromUserName").setCDATA(message.getToUserName());
 		res.get("CreateTime").setText(message.getCreateTime());
-		res.get("CreateTime").setCDATA(getMsgType());
+		res.get("MsgType").setCDATA(getMsgType());
 	}
 
 	protected abstract String getMsgType();

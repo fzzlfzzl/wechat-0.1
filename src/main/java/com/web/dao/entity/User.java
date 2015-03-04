@@ -26,7 +26,7 @@ public class User {
 
 	private String address = null;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Message> messages = new ArrayList<Message>();
 
 	public int getId() {

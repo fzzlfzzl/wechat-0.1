@@ -1,16 +1,15 @@
 package com.test.service;
 
+import static org.junit.Assert.assertEquals;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.site.util.HttpClient;
 import com.site.util.XmlObject;
 import com.test.common.Common;
 import com.wechat.Const;
 import com.wechat.WechatService;
 import com.wechat.message.handler.impl.AddressMessageHandler;
-
-import static org.junit.Assert.*;
 
 public class ServiceTest {
 
@@ -18,27 +17,6 @@ public class ServiceTest {
 
 	private static final String APP_NAME = "gh_5cb711bbf02b";
 	private static final String USER_NAME = "o5bFts7d47KVX7OEIoK_DY9WJ_xY";
-
-	@Test
-	public void normalMessageTest() throws Exception {
-		String message = "<xml><ToUserName><![CDATA[gh_5cb711bbf02b]]></ToUserName><MsgId>6116423240939715753</MsgId><Content><![CDATA[hello]]></Content><MsgType><![CDATA[text]]></MsgType><CreateTime>1424090760</CreateTime><FromUserName><![CDATA[o5bFts7d47KVX7OEIoK_DY9WJ_xY]]></FromUserName></xml>";
-		HttpClient client = new HttpClient("http://127.0.0.1:8080/wechat/wechat/service");
-		System.out.println(message);
-		String res = client.post(message);
-		System.out.println(res);
-		XmlObject resObj = XmlObject.toXmlObject(res);
-		assertEquals(resObj.get("FromUserName").getText(), "gh_5cb711bbf02b");
-	}
-
-	@Test
-	public void addressMenuTest() {
-		XmlObject req = new XmlObject("xml");
-		req.get("ToUserName").setCDATA("gh_5cb711bbf02b");
-		req.get("FromUserName").setCDATA("o5bFts7d47KVX7OEIoK_DY9WJ_xY");
-		req.get("CreateTime").setText("" + System.currentTimeMillis());
-		req.get("MsgType").setCDATA("event");
-
-	}
 
 	public XmlObject createClickEventMessage(String key) {
 		XmlObject req = new XmlObject("xml");
