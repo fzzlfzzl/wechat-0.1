@@ -3,9 +3,9 @@ package com.test.service;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.site.util.HttpClient;
+import com.site.util.XmlObject;
 import com.test.common.Common;
-import com.util.HttpClient;
-import com.util.XmlObject;
 import com.wechat.Const;
 import com.wechat.WechatService;
 import com.wechat.message.handler.impl.AddressMessageHandler;

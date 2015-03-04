@@ -1,6 +1,6 @@
 package com.wechat.menu;
 
-import com.util.JsonObject;
+import com.site.util.JsonObject;
 
 public interface IButton {
 

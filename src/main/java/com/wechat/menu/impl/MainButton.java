@@ -3,7 +3,7 @@ package com.wechat.menu.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.util.JsonObject;
+import com.site.util.JsonObject;
 import com.wechat.menu.IMainButton;
 import com.wechat.menu.ISubButton;
 

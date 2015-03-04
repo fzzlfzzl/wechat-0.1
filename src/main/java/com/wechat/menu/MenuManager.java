@@ -3,8 +3,8 @@ package com.wechat.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.util.HttpClient;
-import com.util.JsonObject;
+import com.site.util.HttpClient;
+import com.site.util.JsonObject;
 import com.wechat.WechatHelper;
 import com.wechat.menu.impl.ButtonMenu;
 import com.wechat.message.handler.impl.AddressMessageHandler;

@@ -1,6 +1,6 @@
 package com.wechat.message.reply;
 
-import com.util.XmlObject;
+import com.site.util.XmlObject;
 
 public interface IMessageReply {
 

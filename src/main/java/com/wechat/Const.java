@@ -9,6 +9,7 @@ public interface Const {
 
 	// 事件的key
 	public final static String EVENT_KEY_ADDRESS = "ADDRESS";
+	public static final String EVENT_KEY_ORDER = "ORDER";
 
 	// 菜单名称
 	public static final String BUTTON_NAME_ADDRESS = "地址";

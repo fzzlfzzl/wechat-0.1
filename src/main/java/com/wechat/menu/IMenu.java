@@ -8,6 +8,7 @@ public interface IMenu {
 	public static final String TYPE_VIEW = "view";
 
 	public static final String NAME_ADDRESS = "地址";
+	public static final String NAME_ORDER = "订餐";
 
 	public String getName();
 

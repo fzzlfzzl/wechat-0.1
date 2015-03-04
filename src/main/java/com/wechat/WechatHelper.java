@@ -1,7 +1,7 @@
 package com.wechat;
 
-import com.util.HttpClient;
-import com.util.JsonObject;
+import com.site.util.HttpClient;
+import com.site.util.JsonObject;
 
 public class WechatHelper {
 	private static String APP_SECRET = "a22d71808ae9b3c7f9d926c7967a2c0c";

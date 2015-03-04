@@ -4,6 +4,7 @@ import com.web.dao.entity.Message;
 import com.wechat.Const;
 import com.wechat.message.handler.IMessageHandler;
 import com.wechat.message.handler.impl.AddressMessageHandler;
+import com.wechat.message.handler.impl.OrderMessageHandler;
 import com.wechat.message.handler.impl.TextMessageHandler;
 
 public class MessageHandlerFactory {
@@ -29,6 +30,8 @@ public class MessageHandlerFactory {
 		String eventKey = message.getEventKey();
 		if (AddressMessageHandler.EVENT_KEY.equals(eventKey)) {
 			return new AddressMessageHandler();
+		} else if (OrderMessageHandler.EVENT_KEY.equals(eventKey)) {
+			return new OrderMessageHandler();
 		}
 		throw new RuntimeException("Unknown Message");
 	}

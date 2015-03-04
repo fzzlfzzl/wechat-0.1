@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.util.ExceptionLogger;
-import com.util.Util;
-import com.util.XmlObject;
+import com.site.util.ExceptionLogger;
+import com.site.util.Util;
+import com.site.util.XmlObject;
 import com.web.dao.entity.Message;
 import com.wechat.message.factory.MessageFactory;
 import com.wechat.message.reply.IMessageReply;

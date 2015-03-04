@@ -15,8 +15,8 @@ import org.hibernate.internal.util.ConfigHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.w3c.dom.Document;
 
-import com.util.Util;
-import com.util.XmlObject;
+import com.site.util.Util;
+import com.site.util.XmlObject;
 
 public class HibernateUtil {
 

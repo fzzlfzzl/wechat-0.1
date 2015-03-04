@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.util.ExceptionLogger;
+import com.site.util.ExceptionLogger;
 import com.wechat.WechatService;
 
 @Controller
