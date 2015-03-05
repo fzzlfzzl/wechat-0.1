@@ -5,6 +5,7 @@ import org.hibernate.Session;
 
 import com.site.util.HttpClient;
 import com.site.util.JsonObject;
+import com.test.tools.HttpsClient;
 import com.web.dao.entity.AccessToken;
 import com.web.dao.impl.AccessTokenDao;
 import com.web.interceptor.context.UserContext;
@@ -71,10 +72,16 @@ public class WechatHelper {
 
 	public static void registMenu(String req) {
 		String url = getRegistMenuUrl();
+		// url = "http://127.0.0.1:9090/";
 		logger.info("Regist Menu Url: " + url);
-		HttpClient client = new HttpClient(url);
+		HttpsClient client = new HttpsClient(url);
 		logger.info("Regist Menu Req: " + req);
-		String res = client.post(req);
+		String res = null;
+		try {
+			res = client.request(req);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		logger.info("Regist Menu Res: " + res);
 		JsonObject obj = JsonObject.toJsonObject(res);
 		if (obj.get("errcode").toInt() != 0) {

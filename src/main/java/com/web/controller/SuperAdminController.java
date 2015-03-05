@@ -79,6 +79,6 @@ public class SuperAdminController extends WebController {
 	@RequestMapping(value = "/regist-menu", method = RequestMethod.GET)
 	public ModelAndView registMenu() throws Exception {
 		service.registMenu();
-		return createRedirectModelAndView("regist-menu-succ");
+		return createNormalModelAndView("regist-menu-succ");
 	}
 }
