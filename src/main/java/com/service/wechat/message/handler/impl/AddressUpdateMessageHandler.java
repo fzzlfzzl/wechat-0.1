@@ -11,7 +11,7 @@ import com.service.wechat.message.reply.impl.TextMessageReply;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
-import com.web.interceptor.session.SessionPool;
+import com.web.interceptor.context.UserContext;
 
 public class AddressUpdateMessageHandler implements IMessageHandler {
 
@@ -23,7 +23,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 			logger.info("Not Suitable Message");
 			return null;
 		}
-		UserDao dao = new UserDao(SessionPool.current());
+		UserDao dao = new UserDao(UserContext.current().getSession());
 		User user = dao.get(message.getOpenId());
 		user.setAddress(message.getContent());
 		dao.update(user);

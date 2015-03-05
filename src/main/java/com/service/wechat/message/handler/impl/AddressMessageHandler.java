@@ -11,7 +11,7 @@ import com.service.wechat.message.reply.impl.TextMessageReply;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
-import com.web.interceptor.session.SessionPool;
+import com.web.interceptor.context.UserContext;
 
 public class AddressMessageHandler implements IClickEventMessageHandler, IMenuMessageHandler {
 
@@ -22,7 +22,7 @@ public class AddressMessageHandler implements IClickEventMessageHandler, IMenuMe
 	public IMessageReply handleMessage(Message message, StateHandler state) {
 		state.setNextHandler(new AddressUpdateMessageHandler());
 		TextMessageReply reply = new TextMessageReply(message);
-		User user = new UserDao(SessionPool.current()).get(message.getOpenId());
+		User user = new UserDao(UserContext.current().getSession()).get(message.getOpenId());
 		if (null != user.getAddress()) {
 			// 已有地址，需要确认
 			state.setNextHandler(new AddressCheckMessageHandler());

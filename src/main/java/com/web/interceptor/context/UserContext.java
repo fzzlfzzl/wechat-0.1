@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 
-public class UserContext implements IUserContext {
+public class UserContext {
 
 	// private static Logger logger =
 	// Logger.getLogger(ControllerViewInterceptor.class);
@@ -20,7 +20,7 @@ public class UserContext implements IUserContext {
 		this.session = session;
 	}
 
-	public static IUserContext current() {
+	public static UserContext current() {
 		return UserContextPool.current();
 	}
 

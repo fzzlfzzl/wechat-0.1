@@ -2,9 +2,6 @@ package com.web.interceptor.context;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 public class UserContextPool {
 
 	private static ConcurrentHashMap<Long, UserContext> contextMap = new ConcurrentHashMap<Long, UserContext>();

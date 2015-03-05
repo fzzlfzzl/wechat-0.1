@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.controller.base.WebController;
 import com.web.interceptor.annotation.AuthAdmin;
 import com.web.service.AdminService;
-import com.web.view.site.admin.UserListView;
 
 @Controller
 @RequestMapping("/admin")

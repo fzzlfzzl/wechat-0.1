@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.interceptor.context.UserContext;
-import com.web.interceptor.context.IUserContext;
 
 public class WebController {
 
@@ -38,11 +37,10 @@ public class WebController {
 	}
 
 	protected ModelAndView createRedirectModelAndView(String view) {
-		IUserContext context = UserContext.current();
+		UserContext context = UserContext.current();
 		String url = null;
 		if (isSelfView(view)) {
-			url = String.format("%s/%s/%s", context.getRequest().getContextPath(),
-					thisController(), view);
+			url = String.format("%s/%s/%s", context.getRequest().getContextPath(), thisController(), view);
 		} else {
 			url = String.format("%s/%s", context.getRequest().getContextPath(), view);
 		}

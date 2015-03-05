@@ -13,7 +13,7 @@ import com.web.interceptor.annotation.AuthSuperAdmin;
 import com.web.service.AdminService;
 import com.web.service.SuperAdminService;
 
-public class AuthInterceptor extends HandlerInterceptorAdapter {
+public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
 
 	// private static Logger logger = Logger.getLogger(AuthInterceptor.class);
 	private AdminService adminService = new AdminService();

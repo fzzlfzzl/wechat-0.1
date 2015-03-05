@@ -5,21 +5,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import org.hibernate.Session;
 import org.junit.Test;
 
 import com.test.util.DbManager;
+import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
-import com.web.interceptor.session.SessionPool;
 
 public class UserDaoTest {
 
 	@Test
 	public void userDaoTest() {
 		DbManager.rebase();
-		SessionPool.openSession();
-		UserDao dao = new UserDao(SessionPool.current());
+		Session session = HibernateUtil.openSession();
+		UserDao dao = new UserDao(session);
 		try {
 			{
 				// create and read
@@ -58,8 +59,6 @@ public class UserDaoTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
-		} finally {
-			SessionPool.closeSession();
 		}
 	}
 
@@ -72,8 +71,8 @@ public class UserDaoTest {
 			String content = "content";
 			DbManager.rebase();
 
-			SessionPool.openSession();
-			UserDao dao = new UserDao(SessionPool.current());
+			Session session = HibernateUtil.openSession();
+			UserDao dao = new UserDao(session);
 			{
 				// 写入user
 				User user = new User();
@@ -111,8 +110,6 @@ public class UserDaoTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
-		} finally {
-			SessionPool.closeSession();
 		}
 	}
 }

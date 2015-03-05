@@ -27,9 +27,10 @@
 
 	<mvc:interceptors>
 		<!-- 这个一定要定义在前面 -->
-		<bean class="com.web.interceptor.impl.ApplicationContextInterceptor"></bean>
+		<bean class="com.web.interceptor.impl.UserContextInterceptor"></bean>
 		<!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
-		<bean class="com.web.interceptor.impl.AuthInterceptor"></bean>
+		<bean class="com.web.interceptor.impl.AuthenticateInterceptor"></bean>
+		<bean class="com.web.interceptor.impl.ExceptionLoggerInterceptor"></bean>
 	</mvc:interceptors>
 
 	<mvc:annotation-driven />
