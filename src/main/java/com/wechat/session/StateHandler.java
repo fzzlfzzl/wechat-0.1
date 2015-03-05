@@ -1,29 +1,22 @@
-package com.wechat.state;
+package com.wechat.session;
 
 import com.web.dao.entity.Message;
-import com.web.dao.entity.User;
-import com.web.dao.impl.UserDao;
 import com.wechat.message.factory.MessageHandlerFactory;
 import com.wechat.message.handler.IMessageHandler;
 import com.wechat.message.reply.IMessageReply;
 
-public class UserState implements IUserState {
+public class StateHandler {
 
 	private IMessageHandler nextHandler = null;
-	private User user = null;
 
-	public UserState(User user) {
-		this.user = user;
+	public StateHandler() {
 	}
 
-	@Override
 	public void setNextHandler(IMessageHandler handler) {
 		this.nextHandler = handler;
 	}
 
-	@Override
 	public IMessageReply handleMessage(Message message) {
-		logMessage(message);
 		IMessageHandler handler = nextHandler;
 		nextHandler = null;
 		// 使用默认的handler
@@ -39,22 +32,8 @@ public class UserState implements IUserState {
 		return defaultHandler(message).handleMessage(message, this);
 	}
 
-	private void logMessage(Message message) {
-		user.getMessages().add(message);
-		persist();
-	}
-
 	private IMessageHandler defaultHandler(Message message) {
 		return MessageHandlerFactory.createMessageHandler(message);
 	}
 
-	@Override
-	public User getUser() {
-		return user;
-	}
-
-	@Override
-	public void persist() {
-		UserDao.save(user);
-	}
 }

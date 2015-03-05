@@ -7,7 +7,7 @@ import com.wechat.message.handler.IClickEventMessageHandler;
 import com.wechat.message.handler.IMenuMessageHandler;
 import com.wechat.message.reply.IMessageReply;
 import com.wechat.message.reply.impl.TextMessageReply;
-import com.wechat.state.IUserState;
+import com.wechat.session.StateHandler;
 
 /**
  * 请用户确认
@@ -21,7 +21,7 @@ public class AddressCheckMessageHandler implements IClickEventMessageHandler, IM
 	public static final String NAME = IMenu.NAME_ADDRESS;
 
 	@Override
-	public IMessageReply handleMessage(Message message, IUserState state) {
+	public IMessageReply handleMessage(Message message, StateHandler state) {
 		if (!message.getMsgType().equals(Const.TYPE_TEXT)) {
 			return null;
 		}
@@ -43,4 +43,5 @@ public class AddressCheckMessageHandler implements IClickEventMessageHandler, IM
 	public String getName() {
 		return NAME;
 	}
+
 }

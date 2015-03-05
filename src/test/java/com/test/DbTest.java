@@ -15,6 +15,7 @@ import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
+import com.wechat.session.SessionPool;
 
 public class DbTest {
 
@@ -35,135 +36,6 @@ public class DbTest {
 		}
 	}
 
-	@Test
-	public void messageTest() {
-		try {
-			int userid = 0;
-			int messageid = 0;
-			// int messageid2 = 0;
-			String openid = "" + System.currentTimeMillis();
-			String content = "content";
-			Common.getDbManager().rebase();
-			{
-				// 写入user
-				Session session = HibernateUtil.openSession();
-				session.beginTransaction();
-				User user = new User();
-				user.setOpenId(openid);
-				session.save(user);
-				session.getTransaction().commit();
-				session.close();
-				userid = user.getId();
-			}
-			{
-				// 获取user
-				Session session = HibernateUtil.openSession();
-				User user = (User) session.load(User.class, userid);
-				assertEquals(user.getId(), userid);
-				session.close();
-			}
-			{
-				// 写入message
-				Session session = HibernateUtil.openSession();
-				session.beginTransaction();
 
-				User user = (User) session.load(User.class, userid);
-				Message message = new Message();
-				message.setContent(content);
-				message.setOpenId(user.getOpenId());
-				user.getMessages().add(message);
-				session.save(user);
 
-				session.getTransaction().commit();
-				session.close();
-				messageid = message.getId();
-
-			}
-			{
-				// 获取message
-				Session session = HibernateUtil.openSession();
-				Message message = (Message) session.load(Message.class, messageid);
-				assertNotNull(message);
-				assertEquals(content, message.getContent());
-				session.close();
-			}
-			{
-				// 通过user获取message
-				Session session = HibernateUtil.openSession();
-				User user = (User) session.load(User.class, userid);
-				assertEquals(user.getMessages().get(0).getId(), messageid);
-				session.close();
-			}
-			{
-				// 加入第二个message
-				Message message = new Message();
-				Session session = HibernateUtil.openSession();
-				session.beginTransaction();
-				User user = (User) session.load(User.class, userid);
-				user.getMessages().add(message);
-				session.getTransaction().commit();
-				session.close();
-			}
-			{
-				// 查询出两个message
-				Session session = HibernateUtil.openSession();
-				User user = (User) session.load(User.class, userid);
-				assertEquals(user.getMessages().size(), 2);
-				session.close();
-			}
-			{
-				// 删除message，通过user更新
-				Session session = HibernateUtil.openSession();
-				session.beginTransaction();
-				User user = (User) session.load(User.class, userid);
-				for (Message message : user.getMessages()) {
-					session.delete(message);
-				}
-				user.getMessages().clear();
-				session.getTransaction().commit();
-				session.close();
-			}
-			{
-				// 通过原有的messageid拿不到
-				Session session = HibernateUtil.openSession();
-				Message message = (Message) session.get(Message.class, messageid);
-				assertNull(message);
-				session.close();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
-	@Test
-	public void userDaoTest() {
-		try {
-			Common.getDbManager().rebase();
-			List<User> list = UserDao.list();
-			int size1 = list.size();
-			String A = "A" + System.currentTimeMillis();
-			String B = "B" + System.currentTimeMillis();
-			User user1 = new User();
-			user1.setOpenId(A);
-			UserDao.save(user1);
-			User user2 = new User();
-			user2.setOpenId(B);
-			UserDao.save(user2);
-			list = UserDao.list();
-			int size2 = list.size();
-			assertEquals(2, size2 - size1);
-			assertEquals(list.get(size1).getId(), user1.getId());
-			assertEquals(list.get(size1).getOpenId(), user1.getOpenId());
-			assertEquals(list.get(size1 + 1).getId(), user2.getId());
-			assertEquals(list.get(size1 + 1).getOpenId(), user2.getOpenId());
-
-			User user = UserDao.load(B);
-			assertEquals(user.getId(), user2.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
 }

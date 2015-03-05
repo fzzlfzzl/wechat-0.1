@@ -12,10 +12,12 @@ import com.site.util.ExceptionLogger;
 import com.site.util.Util;
 import com.site.util.XmlObject;
 import com.web.dao.entity.Message;
+import com.web.dao.entity.User;
+import com.web.dao.impl.UserDao;
 import com.wechat.message.factory.MessageFactory;
 import com.wechat.message.reply.IMessageReply;
-import com.wechat.state.IUserState;
-import com.wechat.state.UserStatePool;
+import com.wechat.session.SessionPool;
+import com.wechat.session.StateHandler;
 
 public class WechatService {
 	private static String TOKEN = "jiuwubaodu";
@@ -72,11 +74,28 @@ public class WechatService {
 	}
 
 	public static XmlObject service(XmlObject reqObject) {
-		Message message = MessageFactory.createMessage(reqObject);
-		IUserState state = UserStatePool.getUserState(message.getOpenId());
-		IMessageReply reply = state.handleMessage(message);
-		XmlObject resObject = reply.getResponse();
-		return resObject;
+		try {
+			SessionPool.openSession();
+			Message message = MessageFactory.createMessage(reqObject);
+			logMessage(message);
+			StateHandler handler = new StateHandler();
+			IMessageReply reply = handler.handleMessage(message);
+			XmlObject resObject = reply.getResponse();
+			return resObject;
+		} finally {
+			SessionPool.closeSession();
+		}
+	}
+
+	private static void logMessage(Message message) {
+		UserDao dao = new UserDao(SessionPool.openSession());
+		User user = dao.get(message.getOpenId());
+		if (user == null) {
+			user = new User();
+			user.setOpenId(message.getOpenId());
+			dao.save(user);
+		}
+		dao.addMessage(user, message);
 	}
 
 	private static boolean invalidParam(String signature, String echostr, String timestamp,

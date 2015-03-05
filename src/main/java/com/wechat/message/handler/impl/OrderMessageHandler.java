@@ -8,7 +8,7 @@ import com.wechat.message.handler.IClickEventMessageHandler;
 import com.wechat.message.handler.IMenuMessageHandler;
 import com.wechat.message.reply.IMessageReply;
 import com.wechat.message.reply.impl.UserRedirectMessageReply;
-import com.wechat.state.IUserState;
+import com.wechat.session.StateHandler;
 
 public class OrderMessageHandler implements IClickEventMessageHandler, IMenuMessageHandler {
 
@@ -16,7 +16,7 @@ public class OrderMessageHandler implements IClickEventMessageHandler, IMenuMess
 	public static final String NAME = IMenu.NAME_ORDER;
 
 	@Override
-	public IMessageReply handleMessage(Message message, IUserState state) {
+	public IMessageReply handleMessage(Message message, StateHandler state) {
 		UserRedirectMessageReply reply = new UserRedirectMessageReply(message);
 		reply.setDescription("description");
 		reply.setTitle("title");

@@ -17,17 +17,11 @@
 		<property name="c3p0.idleConnectionTestPeriod">18000</property>
 		<property name="c3p0.maxIdleTime">25000</property>
 		<property name="c3p0.idle_test_period">120</property>
-		<property name="dialect">
-			org.hibernate.dialect.MySQLDialect
-		</property>
-		<property name="connection.url">
-			jdbc:mysql://sqld.duapp.com:4050/IeSSkUaEwdLIOuyKGUtp
-		</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.url">jdbc:mysql://sqld.duapp.com:4050/IeSSkUaEwdLIOuyKGUtp</property>
 		<property name="connection.username">Scu0HwGwVF0ov4ES7SGuH6Cj</property>
 		<property name="connection.password">6OqgyPLkVIXrdmh8Rl8MpZ3YFKAfZ33U</property>
-		<property name="connection.driver_class">
-			com.mysql.jdbc.Driver
-		</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
 

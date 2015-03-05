@@ -2,52 +2,101 @@ package com.web.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.web.dao.db.HibernateUtil;
+import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 
-public class UserDao {
+public class UserDao extends Dao {
 
-	public static User load(String openId) {
-		Session session = HibernateUtil.openSession();
+	public UserDao(Session session) {
+		super(session);
+	}
+
+	public User load(String openId) {
 		try {
-			String query = String.format("from User where openId = '%s'", openId);
-			List<?> list = session.createQuery(query).list();
-			if (list.size() == 0) {
-				return null;
-			} else {
-				return (User) list.get(0);
-			}
-		} finally {
-			session.close();
+			User user = (User) session.load(User.class, openId);
+			return user;
+		} catch (RuntimeException e) {
+			throw e;
 		}
 	}
 
-	public static void save(User user) {
-		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
+	public User get(String openId) {
 		try {
-			session.saveOrUpdate(user);
-			session.getTransaction().commit();
+			User user = (User) session.get(User.class, openId);
+			return user;
 		} catch (RuntimeException e) {
-			session.getTransaction().rollback();
 			throw e;
-		} finally {
-			session.close();
+		}
+	}
+
+	public void save(User user) {
+		beginTransaction();
+		try {
+			session.save(user);
+			commit();
+		} catch (RuntimeException e) {
+			rollback();
+			throw e;
+		}
+	}
+
+	public void update(User user) {
+		beginTransaction();
+		try {
+			session.update(user);
+			commit();
+		} catch (RuntimeException e) {
+			rollback();
+			throw e;
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<User> list() {
-		Session session = HibernateUtil.openSession();
+	public List<User> list() {
 		try {
 			String query = String.format("from User");
 			List<User> list = (List<User>) session.createQuery(query).list();
 			return list;
-		} finally {
-			session.close();
+		} catch (RuntimeException e) {
+			throw e;
 		}
 	}
 
+	public void addMessage(User user, Message message) {
+		beginTransaction();
+		try {
+			session.save(message);
+			user.getMessages().add(message);
+			commit();
+		} catch (RuntimeException e) {
+			rollback();
+			throw e;
+		}
+	}
+
+	public Message getMessage(User user, int idx) {
+		try {
+			String hql = "from Message where uid = :uid";
+			Query query = session.createQuery(hql);
+			query.setFirstResult(idx);
+			query.setMaxResults(1);
+			query.setString("uid", user.getOpenId());
+			return (Message) query.list().get(0);
+		} catch (RuntimeException e) {
+			throw e;
+		}
+	}
+
+	public int getMessageSize(User user) {
+		try {
+			long ret = (Long) session.createQuery("select count(1) from Message where uid=:uid")
+					.setString("uid", user.getOpenId()).uniqueResult();
+			return (int) ret;
+		} catch (RuntimeException e) {
+			throw e;
+		}
+	}
 }
