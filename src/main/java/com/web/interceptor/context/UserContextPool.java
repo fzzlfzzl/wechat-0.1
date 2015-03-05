@@ -11,7 +11,7 @@ public class UserContextPool {
 		return contextMap.get(key);
 	}
 
-	public static boolean put(UserContext context) throws Exception {
+	public static boolean put(UserContext context) {
 		long key = Thread.currentThread().getId();
 		contextMap.put(key, context);
 		return true;
