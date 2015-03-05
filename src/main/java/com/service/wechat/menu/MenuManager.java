@@ -1,51 +1,35 @@
 package com.service.wechat.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.service.wechat.WechatHelper;
-import com.service.wechat.menu.impl.ButtonMenu;
+import com.service.wechat.menu.impl.ClickButton;
 import com.service.wechat.menu.impl.MainButton;
 import com.service.wechat.menu.impl.SubButton;
-import com.service.wechat.message.handler.impl.AddressMessageHandler;
+import com.service.wechat.message.handler.impl.OrderMessageHandler;
 import com.site.util.HttpClient;
-import com.site.util.JsonObject;
 
 public class MenuManager {
 
-	private static List<IMenu> menuList = null;
+	private static MainButton main = null;
 
 	public static void initMenu() {
-		MainButton main = new MainButton();
-		SubButton sub = new SubButton();
-		
-		IMenu menu = null;
-		menu = new ButtonMenu(new AddressMessageHandler());
-		menuList.add(menu);
+		SubButton sub = new SubButton("二级菜单");
+		main.addChild(sub);
+
+		ClickButton click = new ClickButton(OrderMessageHandler.NAME, OrderMessageHandler.EVENT_KEY);
+		sub.addChild(click);
 	}
 
-	public synchronized static List<IMenu> getMenuList() {
-		if (null == menuList) {
-			menuList = new ArrayList<IMenu>();
+	public synchronized static String getRequest() {
+		if (null == main) {
+			main = new MainButton();
 			initMenu();
 		}
-		return menuList;
+		return main.toJsonObject().toJsonString();
 	}
 
 	public static void registMenu() {
-		List<IMenu> list = getMenuList();
-		JsonObject obj = new JsonObject();
-		try {
-			for (int i = 0; i < list.size(); i++) {
-				obj.get("button").get(i).get("type").set(list.get(i).getType());
-				obj.get("button").get(i).get("name").set(list.get(i).getName());
-				obj.get("button").get(i).get("key").set(list.get(i).getEventKey());
-			}
-			HttpClient client = new HttpClient(WechatHelper.getRegistMenuUrl());
-			String res = client.post(obj.toJsonString());
-			System.out.println(res);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		HttpClient client = new HttpClient(WechatHelper.getRegistMenuUrl());
+		String res = client.post(getRequest());
+		System.out.println(res);
 	}
 }

@@ -1,5 +1,7 @@
 package com.service.wechat.session;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.service.wechat.message.factory.MessageHandlerFactory;
 import com.service.wechat.message.handler.IMessageHandler;
 import com.service.wechat.message.reply.IMessageReply;
@@ -36,4 +38,13 @@ public class StateHandler {
 		return MessageHandlerFactory.createMessageHandler(message);
 	}
 
+	private static ConcurrentHashMap<String, StateHandler> map = new ConcurrentHashMap<String, StateHandler>();
+
+	public static StateHandler byUser(String openId) {
+		if (!map.containsKey(openId)) {
+			StateHandler handler = new StateHandler();
+			map.put(openId, handler);
+		}
+		return map.get(openId);
+	}
 }

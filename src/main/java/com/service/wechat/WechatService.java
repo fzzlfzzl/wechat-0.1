@@ -54,6 +54,8 @@ public class WechatService {
 
 	public static void doPost(HttpServletRequest request, HttpServletResponse response) {
 		try {
+			SessionPool.openSession();
+
 			response.setContentType("text/html");
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
@@ -70,21 +72,20 @@ public class WechatService {
 			out.print(res);
 		} catch (Exception e) {
 			logger.error(new ExceptionLogger(e));
+		} finally {
+			SessionPool.closeSession();
 		}
 	}
 
 	public static XmlObject service(XmlObject reqObject) {
-		try {
-			SessionPool.openSession();
-			Message message = MessageFactory.createMessage(reqObject);
-			logMessage(message);
-			StateHandler handler = new StateHandler();
-			IMessageReply reply = handler.handleMessage(message);
-			XmlObject resObject = reply.getResponse();
-			return resObject;
-		} finally {
-			SessionPool.closeSession();
-		}
+		Message message = MessageFactory.createMessage(reqObject);
+		logMessage(message);
+
+		StateHandler handler = StateHandler.byUser(message.getOpenId());
+		IMessageReply reply = handler.handleMessage(message);
+		XmlObject resObject = reply.getResponse();
+		return resObject;
+
 	}
 
 	private static void logMessage(Message message) {

@@ -1,122 +1,101 @@
 package com.test.util;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.util.ConfigHelper;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.service.ServiceRegistry;
+import org.w3c.dom.Document;
+
+import com.site.util.XmlObject;
 
 public class DbManager {
 
-	private static Logger logger = Logger.getLogger(DbManager.class);
+	private static String defaultPath = "hibernate.cfg.xml";
 
-	private static String driver = "com.mysql.jdbc.Driver";
-	private Connection conn = null;
-	private boolean rebased = false;
-
-	private String connString = null;
-
-	public DbManager(String ip, int port, String db, String user, String password) {
-		this.connString = String.format("jdbc:mysql://%s:%d/%s", ip, port, db);
+	private static SessionFactory buildSessionFactory() {
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(connString, user, password);
+			Configuration configuration = new Configuration();
+			Document developConfig = getDevelopConfig();
+			configuration.configure(developConfig);
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+					configuration.getProperties()).build();
+			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			return sessionFactory;
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void rebase() {
-		if (!rebased) {
-			dropTables();
-			rebased = true;
+	private static Document getDevelopConfig() throws Exception {
+		String url = "jdbc:mysql://127.0.0.1:3306/wechat";
+		String user = "root";
+		String pwd = "root";
+		InputStream is = trim(defaultPath);
+		XmlObject obj = XmlObject.toXmlObject(is);
+		XmlObject sessionFactory = obj.get("session-factory");
+		int length = sessionFactory.getLength("property");
+		for (int i = 0; i < length; i++) {
+			XmlObject property = sessionFactory.get("property", i);
+			String name = property.getAttribute("name");
+			if (name.equals("connection.url")) {
+				property.setText(url);
+			} else if (name.equals("connection.username")) {
+				property.setText(user);
+			} else if (name.equals("connection.password")) {
+				property.setText(pwd);
+			}
 		}
+		return XmlObject.Convert.toDocument(obj);
 	}
 
-	public void dropTables() {
-		boolean finish = false;
-		while (!finish) {
-			finish = true;
-			List<String> tables = getTables();
-			for (String table : tables) {
-				String sql = String.format("drop table %s", table);
-				if (!execute(sql)) {
-					finish = false;
+	private static InputStream trim(String path) throws IOException {
+		InputStream is = ConfigHelper.getResourceAsStream(path);
+		StringBuffer sb = new StringBuffer();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String line = null;
+		boolean trim = false;
+		while ((line = br.readLine()) != null) {
+			if (trim && line.trim().endsWith(">")) {
+				trim = false;
+				continue;
+			} else if (trim) {
+				continue;
+			} else if (line.trim().startsWith("<!DOCTYPE")) {
+				trim = true;
+				continue;
+			} else {
+				sb.append(line);
+			}
+		}
+		ByteArrayInputStream ret = new ByteArrayInputStream(sb.toString().getBytes());
+		return ret;
+	}
+
+	public static void rebase() {
+		SessionFactory factory = buildSessionFactory();
+		Session session = factory.openSession();
+		Map<String, ClassMetadata> map = factory.getAllClassMetadata();
+		for (int i = 0; i < map.keySet().size(); i++) {
+			for (String str : map.keySet()) {
+				String tableName = str.substring(str.lastIndexOf('.') + 1).toLowerCase();
+				try {
+					session.createSQLQuery("drop table " + tableName).executeUpdate();
+				} catch (Exception e) {
 				}
 			}
 		}
-	}
-
-	public List<String> getTables() {
-		ArrayList<String> list = new ArrayList<String>();
-		try {
-			DatabaseMetaData md = conn.getMetaData();
-			ResultSet rs = md.getTables(null, "%", "%", null);
-			while (rs.next()) {
-				list.add(rs.getString("TABLE_NAME"));
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return list;
-	}
-
-	public boolean execute(String sql) {
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		try {
-			stmt.execute(sql);
-			stmt.close();
-			return true;
-		} catch (SQLException e) {
-			if (needCatchException(e)) {
-				logger.warn(String.format("Execute Sql Fail: %s (%s)", sql, e.getLocalizedMessage()));
-				return false;
-			}
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	}
-
-	private boolean needCatchException(SQLException e) {
-		return e.getSQLState().equals("23000") || e.getSQLState().equals("42000");
-	}
-
-	public ResultSet executeQuery(String sql) {
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		try {
-			ResultSet ret = stmt.executeQuery(sql);
-			stmt.close();
-			return ret;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
-		}
+		session.close();
+		factory.close();
 	}
 
 }

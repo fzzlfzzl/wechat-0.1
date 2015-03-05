@@ -9,7 +9,7 @@ import com.service.wechat.Const;
 import com.service.wechat.WechatService;
 import com.service.wechat.message.handler.impl.AddressMessageHandler;
 import com.site.util.XmlObject;
-import com.test.common.Common;
+import com.test.util.DbManager;
 
 public class ServiceTest {
 
@@ -42,7 +42,7 @@ public class ServiceTest {
 
 	@Test
 	public void addressUpdateTest() {
-		Common.getDbManager().dropTables();
+		DbManager.rebase();
 		String addr1 = "地址1";
 		String addr2 = "地址2";
 		String addr3 = "地址3";

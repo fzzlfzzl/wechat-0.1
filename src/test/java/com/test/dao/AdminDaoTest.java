@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.test.common.Common;
+import com.test.util.DbManager;
 import com.web.dao.entity.Admin;
 import com.web.dao.impl.AdminDao;
 
@@ -17,7 +17,7 @@ public class AdminDaoTest {
 	@Test
 	public void adminDaoTest() {
 		try {
-			Common.getDbManager().rebase();
+			DbManager.rebase();
 			List<Admin> orig = AdminDao.list();
 			Admin admin = new Admin();
 			admin.setName("test1");

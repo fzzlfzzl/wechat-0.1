@@ -38,27 +38,33 @@ public class HttpClient {
 		}
 	}
 
-	public String post(String req) throws Exception {
-		URL postUrl = new URL(url);
-		HttpURLConnection connection = (HttpURLConnection) postUrl.openConnection();
-		connection.setDoOutput(true);
-		connection.setDoInput(true);
-		connection.setRequestMethod("POST");
-		connection.setUseCaches(false);
-		connection.setInstanceFollowRedirects(true);
-		connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		connection.getOutputStream().write(req.getBytes());
+	public String post(String req) {
+		try {
+			URL postUrl = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) postUrl.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
 
-		StringBuffer buffer = new StringBuffer();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				connection.getInputStream()));
-		String line;
+			connection.setRequestMethod("POST");
 
-		while ((line = reader.readLine()) != null) {
-			buffer.append(line);
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.getOutputStream().write(req.getBytes());
+
+			StringBuffer buffer = new StringBuffer();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			String line;
+
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line);
+			}
+			reader.close();
+			return buffer.toString();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		reader.close();
-		return buffer.toString();
 	}
 
 }

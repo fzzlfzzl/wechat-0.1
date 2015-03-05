@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.service.wechat.session.SessionPool;
-import com.test.common.Common;
+import com.test.util.DbManager;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
@@ -17,7 +17,7 @@ public class UserDaoTest {
 
 	@Test
 	public void userDaoTest() {
-		Common.getDbManager().rebase();
+		DbManager.rebase();
 		SessionPool.openSession();
 		UserDao dao = new UserDao(SessionPool.current());
 		try {
@@ -68,7 +68,7 @@ public class UserDaoTest {
 			// int messageid2 = 0;
 			String openId = "" + System.currentTimeMillis();
 			String content = "content";
-			Common.getDbManager().rebase();
+			DbManager.rebase();
 			SessionPool.openSession();
 			UserDao dao = new UserDao(SessionPool.current());
 			{

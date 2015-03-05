@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.test.common.Common;
+import com.test.util.DbManager;
 import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
@@ -19,16 +19,7 @@ public class SessionTest {
 		try {
 			int messageId = 0;
 			int messageId2 = 0;
-			Common.getDbManager().rebase();
-			{
-				Session session = HibernateUtil.openSession();
-				boolean ret = session.getTransaction().isActive();
-				session.beginTransaction();
-				ret = session.getTransaction().isActive();
-				session.getTransaction().commit();
-				ret = session.getTransaction().isActive();
-				System.out.println(ret);
-			}
+			DbManager.rebase();
 			{
 				// 保存后修改，不保存直接commit
 				Session session = HibernateUtil.openSession();
@@ -132,7 +123,7 @@ public class SessionTest {
 	@Test
 	public void userDaoTest() {
 		try {
-			Common.getDbManager().rebase();
+			DbManager.rebase();
 			{
 				// 做数据
 				Session session = HibernateUtil.openSession();
