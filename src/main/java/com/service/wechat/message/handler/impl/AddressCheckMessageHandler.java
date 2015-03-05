@@ -1,6 +1,9 @@
 package com.service.wechat.message.handler.impl;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.EventKey;
+import com.service.wechat.Const.MsgReply;
+import com.service.wechat.Const.Msg;
+import com.service.wechat.Const.Type;
 import com.service.wechat.menu.IMenu;
 import com.service.wechat.message.handler.IClickEventMessageHandler;
 import com.service.wechat.message.handler.IMenuMessageHandler;
@@ -17,20 +20,20 @@ import com.web.dao.entity.Message;
  */
 public class AddressCheckMessageHandler implements IClickEventMessageHandler, IMenuMessageHandler {
 
-	public static final String EVENT_KEY = Const.EVENT_KEY_ADDRESS;
+	public static final String EVENT_KEY = EventKey.ADDRESS;
 	public static final String NAME = IMenu.NAME_ADDRESS;
 
 	@Override
 	public IMessageReply handleMessage(Message message, StateHandler state) {
-		if (!message.getMsgType().equals(Const.TYPE_TEXT)) {
+		if (!message.getMsgType().equals(Type.TEXT)) {
 			return null;
 		}
-		if (!message.getContent().equals(Const.REQ_YES)) {
+		if (!message.getContent().equals(Msg.YES)) {
 			return null;
 		}
 		state.setNextHandler(new AddressUpdateMessageHandler());
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent(Const.RES_ADDR);
+		reply.setContent(MsgReply.ADDR);
 		return reply;
 	}
 

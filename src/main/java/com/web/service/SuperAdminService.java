@@ -2,7 +2,7 @@ package com.web.service;
 
 import java.util.List;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.Auth;
 import com.site.util.Util;
 import com.web.dao.entity.Admin;
 import com.web.dao.impl.AdminDao;
@@ -11,8 +11,8 @@ import com.web.interceptor.context.UserContext;
 public class SuperAdminService {
 
 	public boolean isLogin() {
-		if (Const.AUTH_SA_LOGIN.equals(UserContext.current().getRequest().getSession()
-				.getAttribute(Const.AUTH_SA_LOGIN))) {
+		if (Auth.SA_LOGIN.equals(UserContext.current().getRequest().getSession()
+				.getAttribute(Auth.SA_LOGIN))) {
 			return true;
 		}
 		return false;
@@ -21,14 +21,14 @@ public class SuperAdminService {
 	public boolean login(String user, String pwd) {
 		if (user.equals("sa") && pwd.equals("111111")) {
 			UserContext.current().getRequest().getSession()
-					.setAttribute(Const.AUTH_SA_LOGIN, Const.AUTH_SA_LOGIN);
+					.setAttribute(Auth.SA_LOGIN, Auth.SA_LOGIN);
 			return true;
 		}
 		return false;
 	}
 
 	static void logout() {
-		UserContext.current().getRequest().getSession().removeAttribute(Const.AUTH_SA_LOGIN);
+		UserContext.current().getRequest().getSession().removeAttribute(Auth.SA_LOGIN);
 	}
 
 	public List<Admin> getAdminList() {

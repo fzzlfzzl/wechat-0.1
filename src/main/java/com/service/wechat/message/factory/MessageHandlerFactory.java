@@ -1,6 +1,6 @@
 package com.service.wechat.message.factory;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.Type;
 import com.service.wechat.message.handler.IMessageHandler;
 import com.service.wechat.message.handler.impl.AddressMessageHandler;
 import com.service.wechat.message.handler.impl.OrderMessageHandler;
@@ -11,16 +11,16 @@ public class MessageHandlerFactory {
 
 	public static IMessageHandler createMessageHandler(Message message) {
 		String msgType = message.getMsgType();
-		if (Const.TYPE_TEXT.equals(msgType))
+		if (Type.TEXT.equals(msgType))
 			return createTextMessageHandler(message);
-		if (Const.TYPE_EVENT.equals(msgType))
+		if (Type.EVENT.equals(msgType))
 			return createEventMessageHandler(message);
 		throw new RuntimeException("Unknown Message");
 	}
 
 	private static IMessageHandler createEventMessageHandler(Message message) {
 		String event = message.getEvent();
-		if (Const.TYPE_CLICK.equals(event)) {
+		if (Type.CLICK.equals(event)) {
 			return createClickEventMessageHandler(message);
 		}
 		throw new RuntimeException("Unknown Message");

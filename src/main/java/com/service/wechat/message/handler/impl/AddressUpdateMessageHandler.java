@@ -2,7 +2,8 @@ package com.service.wechat.message.handler.impl;
 
 import org.apache.log4j.Logger;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.MsgReply;
+import com.service.wechat.Const.Type;
 import com.service.wechat.message.handler.IMessageHandler;
 import com.service.wechat.message.reply.IMessageReply;
 import com.service.wechat.message.reply.impl.TextMessageReply;
@@ -18,7 +19,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 
 	@Override
 	public IMessageReply handleMessage(Message message, StateHandler state) {
-		if (!message.getMsgType().equals(Const.TYPE_TEXT)) {
+		if (!message.getMsgType().equals(Type.TEXT)) {
 			logger.info("Not Suitable Message");
 			return null;
 		}
@@ -27,7 +28,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 		user.setAddress(message.getContent());
 		dao.update(user);
 		TextMessageReply reply = new TextMessageReply(message);
-		reply.setContent(Const.RES_ADDR_UPDT_SUCC);
+		reply.setContent(MsgReply.ADDR_UPDT_SUCC);
 		return reply;
 	}
 

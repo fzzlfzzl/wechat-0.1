@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.MsgReply;
 import com.service.wechat.WechatService;
 import com.service.wechat.message.handler.impl.AddressMessageHandler;
 import com.site.util.XmlObject;
@@ -55,7 +55,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_NORMAL);
+			assertEquals(res.get("Content").getText(), MsgReply.NORMAL);
 		}
 		{
 			// 点击地址按钮
@@ -66,7 +66,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_ADDR);
+			assertEquals(res.get("Content").getText(), MsgReply.ADDR);
 		}
 		{
 			// 输入地址
@@ -77,7 +77,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_ADDR_UPDT_SUCC);
+			assertEquals(res.get("Content").getText(), MsgReply.ADDR_UPDT_SUCC);
 		}
 		{
 			// 再次点击地址按钮，判断地址
@@ -88,7 +88,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RES_ADDR_CHK, addr1);
+			String check = String.format(MsgReply.ADDR_CHK, addr1);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -100,7 +100,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_ADDR);
+			assertEquals(res.get("Content").getText(), MsgReply.ADDR);
 		}
 		{
 			// 输入地址2
@@ -111,7 +111,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_ADDR_UPDT_SUCC);
+			assertEquals(res.get("Content").getText(), MsgReply.ADDR_UPDT_SUCC);
 		}
 		{
 			// 再次点击地址按钮,判断地址2
@@ -122,7 +122,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RES_ADDR_CHK, addr2);
+			String check = String.format(MsgReply.ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -134,7 +134,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RES_ADDR_CHK, addr2);
+			String check = String.format(MsgReply.ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 		{
@@ -146,7 +146,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			assertEquals(res.get("Content").getText(), Const.RES_NORMAL);
+			assertEquals(res.get("Content").getText(), MsgReply.NORMAL);
 		}
 		{
 			// 再次点击地址按钮,依然是2,不更新
@@ -157,7 +157,7 @@ public class ServiceTest {
 			assertEquals(res.get("FromUserName").getText(), APP_NAME);
 			assertEquals(res.get("ToUserName").getText(), USER_NAME);
 			assertEquals(res.get("MsgType").getText(), "text");
-			String check = String.format(Const.RES_ADDR_CHK, addr2);
+			String check = String.format(MsgReply.ADDR_CHK, addr2);
 			assertEquals(res.get("Content").getText(), check);
 		}
 	}

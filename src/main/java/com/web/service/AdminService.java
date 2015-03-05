@@ -1,6 +1,6 @@
 package com.web.service;
 
-import com.service.wechat.Const;
+import com.service.wechat.Const.Auth;
 import com.site.util.Util;
 import com.web.dao.entity.Admin;
 import com.web.dao.impl.AdminDao;
@@ -9,8 +9,8 @@ import com.web.interceptor.context.UserContext;
 public class AdminService {
 
 	public boolean isLogin() {
-		if (Const.AUTH_LOGIN.equals(UserContext.current().getRequest().getSession()
-				.getAttribute(Const.AUTH_LOGIN))) {
+		if (Auth.LOGIN.equals(UserContext.current().getRequest().getSession()
+				.getAttribute(Auth.LOGIN))) {
 			return true;
 		}
 		return false;
@@ -22,7 +22,7 @@ public class AdminService {
 			return false;
 		}
 		if (Util.sha1(pwd).equals(admin.getPassword())) {
-			UserContext.current().getRequest().getSession().setAttribute(Const.AUTH_LOGIN, Const.AUTH_LOGIN);
+			UserContext.current().getRequest().getSession().setAttribute(Auth.LOGIN, Auth.LOGIN);
 			return true;
 		} else {
 			return false;
@@ -31,7 +31,7 @@ public class AdminService {
 	}
 
 	public void logout() {
-		UserContext.current().getRequest().getSession().removeAttribute(Const.AUTH_LOGIN);
+		UserContext.current().getRequest().getSession().removeAttribute(Auth.LOGIN);
 	}
 
 }
