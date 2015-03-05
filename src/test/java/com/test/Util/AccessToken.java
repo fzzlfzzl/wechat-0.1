@@ -1,7 +1,7 @@
 package com.test.util;
 
+import com.service.wechat.WechatHelper;
 import com.site.util.HttpClient;
-import com.wechat.WechatHelper;
 
 public class AccessToken {
 

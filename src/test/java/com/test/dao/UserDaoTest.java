@@ -1,16 +1,17 @@
 package com.test.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
-import org.hibernate.Session;
 import org.junit.Test;
 
+import com.service.wechat.session.SessionPool;
 import com.test.common.Common;
-import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
-import com.wechat.session.SessionPool;
 
 public class UserDaoTest {
 

@@ -130,10 +130,6 @@ public class JsonObject {
 		return Double.parseDouble(obj.toString());
 	}
 
-	public JsonObject toJsonObject() {
-		return JsonObject.toJsonObject(obj.toString());
-	}
-
 	private Object toValue() {
 		if (isMap()) {
 			return toMapValue();

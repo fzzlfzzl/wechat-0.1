@@ -5,10 +5,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.service.wechat.message.handler.impl.OrderMessageHandler;
 import com.site.Config;
 import com.site.util.HttpClient;
 import com.site.util.XmlObject;
-import com.wechat.message.handler.impl.OrderMessageHandler;
 
 public class WebTest {
 	private static final String APP_NAME = "gh_5cb711bbf02b";

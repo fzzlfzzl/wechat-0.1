@@ -2,11 +2,11 @@ package com.web.service;
 
 import java.util.List;
 
+import com.service.wechat.Const;
 import com.site.util.Util;
 import com.web.dao.entity.Admin;
 import com.web.dao.impl.AdminDao;
 import com.web.interceptor.context.UserContext;
-import com.wechat.Const;
 
 public class SuperAdminService {
 

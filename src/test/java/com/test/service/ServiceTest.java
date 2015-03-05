@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.service.wechat.Const;
+import com.service.wechat.WechatService;
+import com.service.wechat.message.handler.impl.AddressMessageHandler;
 import com.site.util.XmlObject;
 import com.test.common.Common;
-import com.wechat.Const;
-import com.wechat.WechatService;
-import com.wechat.message.handler.impl.AddressMessageHandler;
 
 public class ServiceTest {
 
