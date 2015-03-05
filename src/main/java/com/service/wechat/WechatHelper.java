@@ -5,7 +5,6 @@ import org.hibernate.Session;
 
 import com.site.util.HttpClient;
 import com.site.util.JsonObject;
-import com.site.util.Util;
 import com.web.dao.entity.AccessToken;
 import com.web.dao.impl.AccessTokenDao;
 import com.web.interceptor.context.UserContext;
@@ -34,7 +33,7 @@ public class WechatHelper {
 	}
 
 	private static boolean isTimeout(AccessToken token) {
-		if (token.getUpdatetime() + token.getTimeout() * 1000 + 200 > System.currentTimeMillis()) {
+		if (token.getUpdatetime() + token.getTimeout() * 1000 - 200 < System.currentTimeMillis()) {
 			return true;
 		}
 		return false;
