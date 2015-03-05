@@ -1,14 +1,20 @@
 package com.test.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.hibernate.Session;
 import org.junit.Test;
 
+import com.service.wechat.WechatHelper;
+import com.service.wechat.menu.MenuManager;
 import com.service.wechat.menu.impl.ClickButton;
 import com.service.wechat.menu.impl.MainButton;
 import com.service.wechat.menu.impl.SubButton;
 import com.service.wechat.menu.impl.ViewButton;
 import com.site.util.JsonObject;
+import com.web.dao.db.HibernateUtil;
+import com.web.interceptor.context.UserContext;
+import com.web.interceptor.context.UserContextPool;
 
 public class MenuTest {
 
@@ -34,5 +40,14 @@ public class MenuTest {
 
 		assertEquals(main.toJsonObject().toJsonString(), expectObj.toJsonString());
 
+	}
+
+	public static void main(String[] args) {
+		Session session = HibernateUtil.openSession();
+		UserContext context = new UserContext(null, null, session);
+		UserContextPool.put(context);
+		String req = MenuManager.getRequest();
+		System.out.println(req);
+		WechatHelper.registMenu(req);
 	}
 }

@@ -71,6 +71,7 @@ public class WechatHelper {
 
 	public static void registMenu(String req) {
 		String url = getRegistMenuUrl();
+		logger.info("Regist Menu Url: " + url);
 		HttpClient client = new HttpClient(url);
 		logger.info("Regist Menu Req: " + req);
 		String res = client.post(req);
