@@ -7,10 +7,6 @@ import java.net.URL;
 
 public class HttpClient {
 
-	public static final String GET_URL = " http://localhost:8080/demo/  ";
-
-	public static final String POST_URL = " http://localhost:8080/demo/  ";
-
 	private String url;
 
 	public HttpClient(String url) {
@@ -22,8 +18,7 @@ public class HttpClient {
 			URL url = new URL(this.url);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.connect();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			StringBuffer buffer = new StringBuffer();
 			String line;
 
@@ -53,14 +48,14 @@ public class HttpClient {
 			connection.getOutputStream().write(req.getBytes());
 
 			StringBuffer buffer = new StringBuffer();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String line;
 
 			while ((line = reader.readLine()) != null) {
 				buffer.append(line);
 			}
 			reader.close();
+			connection.disconnect();
 			return buffer.toString();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

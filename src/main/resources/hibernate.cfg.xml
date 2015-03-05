@@ -28,5 +28,6 @@
 		<mapping class="com.web.dao.entity.User" />
 		<mapping class="com.web.dao.entity.Message" />
 		<mapping class="com.web.dao.entity.Admin" />
+		<mapping class="com.web.dao.entity.AccessToken" />
 	</session-factory>
 </hibernate-configuration>

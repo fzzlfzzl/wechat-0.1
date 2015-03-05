@@ -32,7 +32,13 @@ public class AdminController extends WebController {
 	}
 
 	@AuthAdmin
-	@RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	public ModelAndView dft(String user, String pwd) throws Exception {
+		return createRedirectModelAndView("index");
+	}
+
+	@AuthAdmin
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(String user, String pwd) throws Exception {
 		return createNormalModelAndView("index");
 	}

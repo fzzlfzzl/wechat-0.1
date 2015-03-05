@@ -24,7 +24,8 @@ public class WebTest {
 			String res = client.post(message);
 			System.out.println(res);
 			XmlObject resObj = XmlObject.toXmlObject(res);
-			assertEquals(resObj.get("FromUserName").getText(), "gh_5cb711bbf02b");
+			assertEquals(resObj.get("FromUserName").getText(), APP_NAME);
+			assertEquals(resObj.get("ToUserName").getText(), USER_NAME);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

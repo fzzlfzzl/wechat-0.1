@@ -18,6 +18,7 @@ public interface Const {
 	// 菜单名称
 	public static class MenuName {
 		public static final String ADDRESS = "地址";
+		public static final String ORDER = "订餐";
 	}
 
 	// 响应

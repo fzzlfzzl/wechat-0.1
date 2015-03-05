@@ -39,7 +39,13 @@ public class SuperAdminController extends WebController {
 	}
 
 	@AuthSuperAdmin
-	@RequestMapping(value = { "/index", "", "/" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	public ModelAndView dft() throws Exception {
+		return createRedirectModelAndView("index");
+	}
+
+	@AuthSuperAdmin
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index() throws Exception {
 		ModelAndView ret = createNormalModelAndView("index");
 		List<Admin> list = service.getAdminList();
@@ -69,4 +75,10 @@ public class SuperAdminController extends WebController {
 		return createRedirectModelAndView("index");
 	}
 
+	@AuthSuperAdmin
+	@RequestMapping(value = "/regist-menu", method = RequestMethod.GET)
+	public ModelAndView registMenu() throws Exception {
+		service.registMenu();
+		return createRedirectModelAndView("regist-menu-succ");
+	}
 }

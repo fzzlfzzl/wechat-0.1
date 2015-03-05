@@ -1,7 +1,7 @@
 package com.service.wechat.message.handler.impl;
 
 import com.service.wechat.Const.EventKey;
-import com.service.wechat.menu.IMenu;
+import com.service.wechat.Const.MenuName;
 import com.service.wechat.message.handler.IClickEventMessageHandler;
 import com.service.wechat.message.handler.IMenuMessageHandler;
 import com.service.wechat.message.handler.StateHandler;
@@ -13,7 +13,7 @@ import com.web.dao.entity.Message;
 public class OrderMessageHandler implements IClickEventMessageHandler, IMenuMessageHandler {
 
 	public static final String EVENT_KEY = EventKey.ORDER;
-	public static final String NAME = IMenu.NAME_ORDER;
+	public static final String NAME = MenuName.ORDER;
 
 	@Override
 	public IMessageReply handleMessage(Message message, StateHandler state) {

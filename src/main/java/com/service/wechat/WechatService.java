@@ -62,7 +62,6 @@ public class WechatService {
 		String res = resObject.toXmlString();
 		logger.info("Response:" + res);
 		out.print(res);
-		throw new Exception("lalala");
 	}
 
 	public static XmlObject service(XmlObject reqObject) {

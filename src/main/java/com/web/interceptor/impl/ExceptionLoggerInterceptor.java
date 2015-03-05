@@ -11,7 +11,7 @@ import com.site.util.ExceptionLogger;
 
 public class ExceptionLoggerInterceptor extends HandlerInterceptorAdapter {
 
-	private static Logger logger = Logger.getLogger(UserContextInterceptor.class);
+	private static Logger logger = Logger.getLogger(ExceptionLoggerInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
