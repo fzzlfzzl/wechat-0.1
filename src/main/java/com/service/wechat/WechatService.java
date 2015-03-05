@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.service.wechat.message.factory.MessageFactory;
+import com.service.wechat.message.handler.StateHandler;
 import com.service.wechat.message.reply.IMessageReply;
-import com.service.wechat.session.SessionPool;
-import com.service.wechat.session.StateHandler;
 import com.site.util.ExceptionLogger;
 import com.site.util.Util;
 import com.site.util.XmlObject;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
+import com.web.interceptor.session.SessionPool;
 
 public class WechatService {
 	private static String TOKEN = "jiuwubaodu";

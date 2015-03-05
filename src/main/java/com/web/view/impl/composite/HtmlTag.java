@@ -1,4 +1,4 @@
-package com.web.view.composite;
+package com.web.view.impl.composite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -252,6 +252,17 @@ public class HtmlTag extends CompositeView {
 	public static class Li extends HtmlTag {
 		Li() {
 			setTag("li");
+		}
+	}
+
+	public static Table table() {
+		Table ret = new Table();
+		return ret;
+	}
+
+	public static class Table extends HtmlTag {
+		Table() {
+			setTag("table");
 		}
 	}
 }

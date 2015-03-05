@@ -113,4 +113,8 @@ public class XmlObject {
 			}
 		}
 	}
+
+	public String toString() {
+		return toXmlString();
+	}
 }

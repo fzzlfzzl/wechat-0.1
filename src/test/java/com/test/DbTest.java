@@ -5,10 +5,16 @@ import static org.junit.Assert.fail;
 import org.hibernate.Session;
 import org.junit.Test;
 
+import com.test.util.DbManager;
 import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.User;
 
 public class DbTest {
+
+	@Test
+	public void rebase() {
+		DbManager.rebase();
+	}
 
 	@Test
 	public void sanityTest() {

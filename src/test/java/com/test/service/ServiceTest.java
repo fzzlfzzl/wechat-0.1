@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.service.wechat.Const.MsgReply;
+import com.service.wechat.Const;
 import com.service.wechat.WechatService;
 import com.service.wechat.message.handler.impl.AddressMessageHandler;
 import com.site.util.XmlObject;
@@ -162,4 +163,10 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void orderTest() {
+		XmlObject req = createClickEventMessage(Const.EventKey.ORDER);
+		XmlObject res = WechatService.service(req);
+		System.out.println(res);
+	}
 }

@@ -1,4 +1,4 @@
-package com.web.view.composite;
+package com.web.view.impl.composite;
 
 import com.web.view.View;
 

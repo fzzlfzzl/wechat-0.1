@@ -1,9 +1,8 @@
-package com.service.wechat.session;
+package com.service.wechat.message.handler;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.service.wechat.message.factory.MessageHandlerFactory;
-import com.service.wechat.message.handler.IMessageHandler;
 import com.service.wechat.message.reply.IMessageReply;
 import com.web.dao.entity.Message;
 

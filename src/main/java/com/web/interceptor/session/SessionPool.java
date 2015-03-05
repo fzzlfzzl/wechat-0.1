@@ -1,4 +1,4 @@
-package com.service.wechat.session;
+package com.web.interceptor.session;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 

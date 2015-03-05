@@ -9,17 +9,13 @@ public class UserContextPool {
 
 	private static ConcurrentHashMap<Long, UserContext> contextMap = new ConcurrentHashMap<Long, UserContext>();
 
-	public static IUserContext get() {
+	public static UserContext current() {
 		long key = Thread.currentThread().getId();
 		return contextMap.get(key);
 	}
 
-	public static boolean put(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public static boolean put(UserContext context) throws Exception {
 		long key = Thread.currentThread().getId();
-		UserContext context = new UserContext();
-		context.setRequest(request);
-		context.setResponse(response);
 		contextMap.put(key, context);
 		return true;
 	}

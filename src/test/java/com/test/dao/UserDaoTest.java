@@ -7,11 +7,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.service.wechat.session.SessionPool;
 import com.test.util.DbManager;
 import com.web.dao.entity.Message;
 import com.web.dao.entity.User;
 import com.web.dao.impl.UserDao;
+import com.web.interceptor.session.SessionPool;
 
 public class UserDaoTest {
 

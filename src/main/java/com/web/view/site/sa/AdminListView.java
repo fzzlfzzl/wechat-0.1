@@ -1,11 +1,11 @@
-package com.web.view.site.admin;
+package com.web.view.site.sa;
 
 import java.util.List;
 
 import com.web.dao.entity.Admin;
 import com.web.view.View;
-import com.web.view.composite.HtmlTag;
-import com.web.view.template.TemplateViewExpression;
+import com.web.view.impl.composite.HtmlTag;
+import com.web.view.impl.template.TemplateViewExpression;
 
 public class AdminListView extends View {
 

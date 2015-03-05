@@ -1,4 +1,4 @@
-package com.web.view.template;
+package com.web.view.impl.template;
 
 import com.web.view.View;
 

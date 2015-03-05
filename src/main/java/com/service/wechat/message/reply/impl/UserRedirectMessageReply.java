@@ -27,10 +27,6 @@ public class UserRedirectMessageReply extends MessageReply {
 	}
 
 	public void setUrl(String str) {
-		if (str.endsWith("/")) {
-			str = str.substring(0, str.length() - 1);
-		}
-		String url = String.format("%s?openid=%s", str, message.getOpenId());
-		res.get("Articles").get("item").get("Url").setCDATA(url);
+		res.get("Articles").get("item").get("Url").setCDATA(str);
 	}
 }

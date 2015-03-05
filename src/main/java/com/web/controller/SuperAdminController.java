@@ -13,7 +13,7 @@ import com.web.dao.entity.Admin;
 import com.web.interceptor.annotation.AuthSuperAdmin;
 import com.web.service.SuperAdminService;
 import com.web.view.View;
-import com.web.view.site.admin.AdminListView;
+import com.web.view.site.sa.AdminListView;
 
 @Controller
 @RequestMapping("/sa")

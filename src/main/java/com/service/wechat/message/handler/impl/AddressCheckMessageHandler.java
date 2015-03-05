@@ -7,9 +7,9 @@ import com.service.wechat.Const.Type;
 import com.service.wechat.menu.IMenu;
 import com.service.wechat.message.handler.IClickEventMessageHandler;
 import com.service.wechat.message.handler.IMenuMessageHandler;
+import com.service.wechat.message.handler.StateHandler;
 import com.service.wechat.message.reply.IMessageReply;
 import com.service.wechat.message.reply.impl.TextMessageReply;
-import com.service.wechat.session.StateHandler;
 import com.web.dao.entity.Message;
 
 /**
