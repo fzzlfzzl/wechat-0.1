@@ -14,15 +14,6 @@ public class UserDao extends Dao {
 		super(session);
 	}
 
-	public User load(String openId) {
-		try {
-			User user = (User) session.load(User.class, openId);
-			return user;
-		} catch (RuntimeException e) {
-			throw e;
-		}
-	}
-
 	public User get(String openId) {
 		try {
 			User user = (User) session.get(User.class, openId);

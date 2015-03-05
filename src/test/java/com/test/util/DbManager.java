@@ -21,6 +21,7 @@ import com.site.util.XmlObject;
 public class DbManager {
 
 	private static String defaultPath = "hibernate.cfg.xml";
+	private static SessionFactory factory = null;
 
 	private static SessionFactory buildSessionFactory() {
 		try {
@@ -82,14 +83,19 @@ public class DbManager {
 	}
 
 	public static void rebase() {
-		SessionFactory factory = buildSessionFactory();
+		if (factory != null) {
+			return;
+		}
+		factory = buildSessionFactory();
 		Session session = factory.openSession();
 		Map<String, ClassMetadata> map = factory.getAllClassMetadata();
 		for (int i = 0; i < map.keySet().size(); i++) {
 			for (String str : map.keySet()) {
 				String tableName = str.substring(str.lastIndexOf('.') + 1).toLowerCase();
 				try {
+					session.beginTransaction();
 					session.createSQLQuery("drop table " + tableName).executeUpdate();
+					session.getTransaction().commit();
 				} catch (Exception e) {
 				}
 			}

@@ -27,7 +27,7 @@ public class UserDaoTest {
 				user.setOpenId("1");
 				dao.save(user);
 
-				User user2 = dao.load("1");
+				User user2 = dao.get("1");
 				assertEquals(user, user2);
 			}
 			{
@@ -36,19 +36,21 @@ public class UserDaoTest {
 				assertNull(user);
 			}
 			{
-				// load nonexist
-				try {
-					dao.load("2");
-					fail();
-				} catch (Exception e) {
-				}
-			}
-			{
 				// update nonexist
 				User user = new User();
 				user.setOpenId("2");
 				try {
 					dao.update(user);
+					fail();
+				} catch (Exception e) {
+				}
+			}
+			{
+				// save exist
+				User user = dao.get("1");
+				user.setAddress("add");
+				try {
+					dao.save(user);
 					fail();
 				} catch (Exception e) {
 				}
@@ -69,6 +71,7 @@ public class UserDaoTest {
 			String openId = "" + System.currentTimeMillis();
 			String content = "content";
 			DbManager.rebase();
+
 			SessionPool.openSession();
 			UserDao dao = new UserDao(SessionPool.current());
 			{
@@ -79,7 +82,7 @@ public class UserDaoTest {
 			}
 			{
 				// 写入message
-				User user = dao.load(openId);
+				User user = dao.get(openId);
 				Message message = new Message();
 				message.setContent(content);
 				message.setOpenId(user.getOpenId());
@@ -88,7 +91,7 @@ public class UserDaoTest {
 			}
 			{
 				// 获取message
-				User user = dao.load(openId);
+				User user = dao.get(openId);
 				Message message = dao.getMessage(user, 0);
 				assertNotNull(message);
 				assertEquals(content, message.getContent());
@@ -97,12 +100,12 @@ public class UserDaoTest {
 			{
 				// 加入第二个message
 				Message message = new Message();
-				User user = dao.load(openId);
+				User user = dao.get(openId);
 				dao.addMessage(user, message);
 			}
 			{
 				// 查询出两个message
-				User user = dao.load(openId);
+				User user = dao.get(openId);
 				assertEquals(dao.getMessageSize(user), 2);
 			}
 		} catch (Exception e) {

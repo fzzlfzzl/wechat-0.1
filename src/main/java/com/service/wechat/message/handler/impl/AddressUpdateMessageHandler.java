@@ -23,7 +23,7 @@ public class AddressUpdateMessageHandler implements IMessageHandler {
 			return null;
 		}
 		UserDao dao = new UserDao(SessionPool.current());
-		User user = dao.load(message.getOpenId());
+		User user = dao.get(message.getOpenId());
 		user.setAddress(message.getContent());
 		dao.update(user);
 		TextMessageReply reply = new TextMessageReply(message);

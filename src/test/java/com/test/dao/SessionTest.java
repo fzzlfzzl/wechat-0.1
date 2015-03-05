@@ -36,8 +36,8 @@ public class SessionTest {
 			{
 				// 连续两次读取
 				Session session = HibernateUtil.openSession();
-				Message message = (Message) session.load(Message.class, messageId);
-				Message message2 = (Message) session.load(Message.class, messageId);
+				Message message = (Message) session.get(Message.class, messageId);
+				Message message2 = (Message) session.get(Message.class, messageId);
 				assertEquals(message, message2);
 				String id1 = message.getOpenId();
 				String id2 = message.getOpenId();
@@ -48,11 +48,11 @@ public class SessionTest {
 			{
 				// 两个session读一个文件，时间上不重合
 				Session session = HibernateUtil.openSession();
-				Message message1 = (Message) session.load(Message.class, messageId);
+				Message message1 = (Message) session.get(Message.class, messageId);
 				String id = message1.getOpenId();
 				session.close();
 				session = HibernateUtil.openSession();
-				Message message2 = (Message) session.load(Message.class, messageId);
+				Message message2 = (Message) session.get(Message.class, messageId);
 				String id2 = message2.getOpenId();
 				session.close();
 				assertEquals(message1.getId(), message2.getId());
@@ -61,10 +61,10 @@ public class SessionTest {
 			{
 				// 两个session读一个文件，时间上重合
 				Session session1 = HibernateUtil.openSession();
-				Message message1 = (Message) session1.load(Message.class, messageId);
+				Message message1 = (Message) session1.get(Message.class, messageId);
 				String id = message1.getOpenId();
 				Session session2 = HibernateUtil.openSession();
-				Message message2 = (Message) session2.load(Message.class, messageId);
+				Message message2 = (Message) session2.get(Message.class, messageId);
 				String id2 = message2.getOpenId();
 				session1.close();
 				session2.close();
@@ -75,8 +75,8 @@ public class SessionTest {
 				// 读两次，一个修改，看另一个
 				Session session = HibernateUtil.openSession();
 				session.beginTransaction();
-				Message message = (Message) session.load(Message.class, messageId);
-				Message message2 = (Message) session.load(Message.class, messageId);
+				Message message = (Message) session.get(Message.class, messageId);
+				Message message2 = (Message) session.get(Message.class, messageId);
 				message.setContent("content");
 				assertEquals(message2.getContent(), message.getContent());
 				session.getTransaction().commit();
@@ -89,8 +89,8 @@ public class SessionTest {
 				session.beginTransaction();
 				Session session2 = HibernateUtil.openSession();
 				session2.beginTransaction();
-				Message message = (Message) session.load(Message.class, messageId);
-				Message message2 = (Message) session2.load(Message.class, messageId);
+				Message message = (Message) session.get(Message.class, messageId);
+				Message message2 = (Message) session2.get(Message.class, messageId);
 				message.setContent("A_" + message.getContent());
 				message2.setContent("B_" + message2.getContent());
 				session.saveOrUpdate(message);
@@ -145,7 +145,7 @@ public class SessionTest {
 				// 在一个session读写
 				Session session = HibernateUtil.openSession();
 				session.getTransaction().begin();
-				User user = (User) session.createQuery("from User").list().get(0);
+				User user = (User) session.get(User.class, "openid");
 				assertEquals(user.getMessages().get(0).getContent(), "0");
 
 				Message message = new Message();
@@ -161,7 +161,7 @@ public class SessionTest {
 			{
 				// 在一个session读出来，在另一个session写进去
 				Session session = HibernateUtil.openSession();
-				User user = (User) session.createQuery("from User").list().get(0);
+				User user = (User) session.get(User.class, "openid");
 				assertEquals(user.getMessages().get(0).getContent(), "0");
 				session.close();
 
@@ -179,7 +179,7 @@ public class SessionTest {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// fail();
+			fail();
 		}
 	}
 }

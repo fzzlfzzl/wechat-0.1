@@ -21,7 +21,7 @@ public class AddressMessageHandler implements IClickEventMessageHandler, IMenuMe
 	public IMessageReply handleMessage(Message message, StateHandler state) {
 		state.setNextHandler(new AddressUpdateMessageHandler());
 		TextMessageReply reply = new TextMessageReply(message);
-		User user = new UserDao(SessionPool.current()).load(message.getOpenId());
+		User user = new UserDao(SessionPool.current()).get(message.getOpenId());
 		if (null != user.getAddress()) {
 			// 已有地址，需要确认
 			state.setNextHandler(new AddressCheckMessageHandler());
