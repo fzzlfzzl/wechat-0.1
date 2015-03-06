@@ -95,7 +95,8 @@ public class UserDao extends Dao {
 	@SuppressWarnings("unchecked")
 	public List<Message> getMessages(User user) {
 		try {
-			List<?> list = session.createQuery("from Message where fromUserName=:openid")
+			List<?> list = session
+					.createQuery("from Message where fromUserName=:openid order by createTime")
 					.setString("openid", user.getOpenId()).list();
 			return (List<Message>) list;
 		} catch (RuntimeException e) {
