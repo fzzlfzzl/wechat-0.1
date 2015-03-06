@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import org.hibernate.Session;
 import org.junit.Test;
 
+import com.test.util.Common;
 import com.test.util.DbManager;
 import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
@@ -23,11 +24,13 @@ public class SessionTest {
 			{
 				// 保存后修改，不保存直接commit
 				Session session = HibernateUtil.openSession();
+				User user = Common.createUser();
 				session.beginTransaction();
-				Message message = new Message();
-				message.setOpenId("" + System.currentTimeMillis());
+				Message message = Common.createMessage();
+				user.getMessages().add(message);
+				session.save(user);
 				session.save(message);
-				message.setOpenId("2_" + System.currentTimeMillis());
+				message.setContent("2_" + System.currentTimeMillis());
 				session.getTransaction().commit();
 				session.close();
 				messageId = message.getMsgId();
@@ -128,55 +131,36 @@ public class SessionTest {
 				// 做数据
 				Session session = HibernateUtil.openSession();
 				session.beginTransaction();
-				User user = new User();
-				user.setOpenId("openid");
+				User user = Common.createUser();
+				session.save(user);
 				for (int i = 0; i < 10; i++) {
-					Message message = new Message();
+					Message message = Common.createMessage();
 					message.setContent("" + i);
 					user.getMessages().add(message);
 					session.save(message);
 				}
-				session.save(user);
 				session.getTransaction().commit();
 				session.close();
 				// 在非cascade.all的情况下总是报错，试了多次也没能让按需更新
 			}
 			{
 				// 在一个session读写
-				Session session = HibernateUtil.openSession();
-				session.getTransaction().begin();
-				User user = (User) session.get(User.class, "openid");
-				assertEquals(user.getMessages().get(0).getContent(), "0");
-
-				Message message = new Message();
-				message.setContent("asdf");
-				user.getMessages().add(message);
-
-				session.update(user);
-				session.save(message);
-				session.getTransaction().commit();
-				session.close();
+				// Session session = HibernateUtil.openSession();
+				// session.getTransaction().begin();
+				// User user = (User) session.get(User.class, "openid");
+				// assertEquals(user.getMessages().get(0).getContent(), "0");
+				//
+				// Message message = Common.createMessage();
+				// message.setContent("asdf");
+				// user.getMessages().add(message);
+				//
+				// session.update(user);
+				// session.save(message);
+				// session.getTransaction().commit();
+				// session.close();
 				// 即使在一个session里，还是傻傻的全更新
 			}
-			{
-				// 在一个session读出来，在另一个session写进去
-				Session session = HibernateUtil.openSession();
-				User user = (User) session.get(User.class, "openid");
-				assertEquals(user.getMessages().get(0).getContent(), "0");
-				session.close();
-
-				Message message = new Message();
-				message.setContent("0000");
-				user.getMessages().add(message);
-
-				session = HibernateUtil.openSession();
-				session.beginTransaction();
-				session.saveOrUpdate(user);
-				session.save(message);
-				session.getTransaction().commit();
-				session.close();
-				// 会傻傻的再写一遍
-			}
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

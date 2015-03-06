@@ -3,14 +3,19 @@ package com.test.service;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.service.wechat.Const.MsgReply;
 import com.service.wechat.Const;
+import com.service.wechat.Const.MsgReply;
 import com.service.wechat.WechatService;
 import com.service.wechat.message.handler.impl.AddressMessageHandler;
+import com.site.util.Util;
 import com.site.util.XmlObject;
 import com.test.util.DbManager;
+import com.web.dao.db.HibernateUtil;
+import com.web.interceptor.context.UserContext;
+import com.web.interceptor.context.UserContextPool;
 
 public class ServiceTest {
 
@@ -23,9 +28,10 @@ public class ServiceTest {
 		XmlObject req = new XmlObject("xml");
 		req.get("ToUserName").setCDATA(APP_NAME);
 		req.get("FromUserName").setCDATA(USER_NAME);
-		req.get("CreateTime").setText("" + System.currentTimeMillis() / 1000);
+		req.get("CreateTime").setText(System.currentTimeMillis() / 1000);
 		req.get("MsgType").setCDATA("event");
 		req.get("Event").setCDATA("CLICK");
+		req.get("MsgId").setText(Util.random());
 		req.get("EventKey").setCDATA(key);
 		return req;
 	}
@@ -34,16 +40,23 @@ public class ServiceTest {
 		XmlObject req = new XmlObject("xml");
 		req.get("ToUserName").setCDATA(APP_NAME);
 		req.get("FromUserName").setCDATA(USER_NAME);
-		req.get("CreateTime").setText("" + System.currentTimeMillis() / 1000);
+		req.get("CreateTime").setText(System.currentTimeMillis() / 1000);
 		req.get("MsgType").setCDATA("text");
-		req.get("MsgId").setText("" + System.currentTimeMillis());
+		req.get("MsgId").setText(Util.random());
 		req.get("Content").setCDATA(content);
 		return req;
 	}
 
+	@Before
+	public void setup() {
+		DbManager.rebase();
+		UserContext context = new UserContext(null, null, HibernateUtil.openSession());
+		UserContextPool.put(context);
+	}
+
 	@Test
 	public void addressUpdateTest() {
-		DbManager.rebase();
+
 		String addr1 = "地址1";
 		String addr2 = "地址2";
 		String addr3 = "地址3";

@@ -7,8 +7,8 @@ public class MessageFactory {
 
 	public static Message createMessage(XmlObject req) {
 		Message message = new Message();
-		message.setMsgId(Integer.parseInt(req.get("MsgId").getText()));
-		message.setCreateTime(Integer.parseInt(req.get("CreateTime").getText()));
+		message.setMsgId(Long.parseLong(req.get("MsgId").getText()));
+		message.setCreateTime(Long.parseLong(req.get("CreateTime").getText()));
 		message.setContent(req.get("Content").getText());
 		message.setEvent(req.get("Event").getText());
 		message.setEventKey(req.get("EventKey").getText());

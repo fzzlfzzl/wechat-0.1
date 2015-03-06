@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.util.Random;
+import java.util.UUID;
 
 public class Util {
 
@@ -32,7 +33,13 @@ public class Util {
 
 	public static long random() {
 		Random r = new Random();
-		return r.nextLong();
+		long ret = r.nextLong();
+		return Math.abs(ret);
+	}
+
+	public static String uuid() {
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
 	}
 }
 

@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.site.util.Util;
+import com.test.util.Common;
 import com.test.util.DbManager;
 import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
@@ -63,14 +63,6 @@ public class UserDaoTest {
 		}
 	}
 
-	private Message createMessage() {
-		Message message = new Message();
-		message.setMsgId(Util.random());
-		message.setContent("" + Util.random());
-		message.setCreateTime(System.currentTimeMillis() / 1000);
-		return message;
-	}
-
 	@Test
 	public void messageTest() {
 		try {
@@ -90,7 +82,7 @@ public class UserDaoTest {
 			{
 				// 写入message 不用在这里设置message的openid
 				User user = dao.get(openId);
-				Message message = createMessage();
+				Message message = Common.createMessage();
 				dao.addMessage(user, message);
 				messageid = message.getMsgId();
 			}
@@ -103,7 +95,7 @@ public class UserDaoTest {
 			}
 			{
 				// 加入第二个message
-				Message message = createMessage();
+				Message message = Common.createMessage();
 				User user = dao.get(openId);
 				dao.addMessage(user, message);
 			}
