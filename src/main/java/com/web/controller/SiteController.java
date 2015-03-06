@@ -29,10 +29,13 @@ public class SiteController extends WebController {
 			Session session = HibernateUtil.openSession();
 			@SuppressWarnings("unchecked")
 			List<Message> list = session.createQuery("from Message").list();
-			View view = new MessageListView(list);
+			String lastMessage = null;
+			if (list.size() != 0) {
+				lastMessage = list.get(list.size() - 1).getContent();
+			}
 			ret.addObject("result", "succ");
-			ret.addObject("text", "中文"); 
-			ret.addObject("messageList", view);
+			ret.addObject("text", "中文");
+			ret.addObject("lastMessage", lastMessage);
 			session.close();
 		} catch (Exception e) {
 			logger.error(new ExceptionLogger(e));

@@ -42,7 +42,7 @@ public class SuperAdminService {
 		AdminDao.save(admin);
 	}
 
-	public void deleteAdmin(int id) {
+	public void deleteAdmin(long id) {
 		AdminDao.delete(id);
 	}
 

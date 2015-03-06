@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Index;
@@ -13,7 +15,8 @@ import org.hibernate.annotations.Index;
 public class Message {
 
 	@Id
-	private long msgId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	private String fromUserName = null;
 
@@ -25,6 +28,8 @@ public class Message {
 	private String msgType = null;
 
 	private String content = null;
+
+	private String msgId = null;
 
 	private String event = null;
 
@@ -94,19 +99,27 @@ public class Message {
 
 	}
 
-	public long getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(long msgId) {
-		this.msgId = msgId;
-	}
-
 	public Long getCreateTime() {
 		return createTime;
 	}
 
 	public void setCreateTime(long createTime) {
 		this.createTime = createTime;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getMsgId() {
+		return msgId;
+	}
+
+	public void setMsgId(String msgId) {
+		this.msgId = msgId;
 	}
 }

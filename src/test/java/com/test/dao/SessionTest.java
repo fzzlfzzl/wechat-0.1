@@ -33,7 +33,7 @@ public class SessionTest {
 				message.setContent("2_" + System.currentTimeMillis());
 				session.getTransaction().commit();
 				session.close();
-				messageId = message.getMsgId();
+				messageId = message.getId();
 				// save后commit前就insert了，commit前有修改在commit时会update
 			}
 			{
@@ -160,7 +160,7 @@ public class SessionTest {
 				// session.close();
 				// 即使在一个session里，还是傻傻的全更新
 			}
-			 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

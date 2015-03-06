@@ -11,7 +11,7 @@ public class Admin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id = 0;
+	private long id = 0;
 
 	@Column(nullable = false, unique = true)
 	private String name = null;
@@ -19,11 +19,11 @@ public class Admin {
 	@Column(nullable = false)
 	private String password = null;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

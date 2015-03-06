@@ -8,7 +8,6 @@ public class Common {
 
 	public static Message createMessage() {
 		Message message = new Message();
-		message.setMsgId(Util.random());
 		message.setContent("createMessage" + Util.random() % 100);
 		message.setCreateTime(System.currentTimeMillis() / 1000);
 		return message;

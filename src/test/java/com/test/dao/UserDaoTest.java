@@ -84,14 +84,14 @@ public class UserDaoTest {
 				User user = dao.get(openId);
 				Message message = Common.createMessage();
 				dao.addMessage(user, message);
-				messageid = message.getMsgId();
+				messageid = message.getId();
 			}
 			{
 				// 获取message
 				User user = dao.get(openId);
 				Message message = dao.getMessage(user, 0);
 				assertNotNull(message);
-				assertEquals(message.getMsgId(), messageid);
+				assertEquals(message.getId(), messageid);
 			}
 			{
 				// 加入第二个message

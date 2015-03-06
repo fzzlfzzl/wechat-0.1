@@ -46,11 +46,11 @@ public class AdminDao {
 		}
 	}
 
-	public static void delete(int id) {
+	public static void delete(long id) {
 		Session session = HibernateUtil.openSession();
 		try {
 			session.beginTransaction();
-			session.createQuery("delete from Admin where id=:id").setInteger("id", id).executeUpdate();
+			session.createQuery("delete from Admin where id=:id").setLong("id", id).executeUpdate();
 			session.getTransaction().commit();
 		} finally {
 			session.close();
