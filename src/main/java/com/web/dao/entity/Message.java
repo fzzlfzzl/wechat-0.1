@@ -1,24 +1,26 @@
 package com.web.dao.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Entity;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Index;
+
+@SuppressWarnings("deprecation")
 @Entity
 public class Message {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id = 0;
+	private long msgId;
 
 	private String fromUserName = null;
 
 	private String toUserName = null;
 
-	private String msgId = null;
-
-	private String createTime = null;
+	@Index(name = "createTimeIndex")
+	private long createTime;
 
 	private String msgType = null;
 
@@ -27,16 +29,6 @@ public class Message {
 	private String event = null;
 
 	private String eventKey = null;
-
-	private String url = null;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getMsgType() {
 		return msgType;
@@ -52,14 +44,6 @@ public class Message {
 
 	public void setOpenId(String openId) {
 		this.fromUserName = openId;
-	}
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
 	}
 
 	public String getContent() {
@@ -86,14 +70,6 @@ public class Message {
 		this.eventKey = eventKey;
 	}
 
-	public String getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
-
 	public String getToUserName() {
 		return toUserName;
 	}
@@ -110,12 +86,27 @@ public class Message {
 		this.fromUserName = fromUserName;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getCreateTimeString() {
+		Date date = new Date(createTime * 1000);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String ret = formatter.format(date);
+		return ret;
+
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public long getMsgId() {
+		return msgId;
 	}
 
+	public void setMsgId(long msgId) {
+		this.msgId = msgId;
+	}
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
 }

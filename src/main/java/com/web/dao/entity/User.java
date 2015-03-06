@@ -19,7 +19,7 @@ public class User {
 	private String address = null;
 
 	@OneToMany
-	@JoinColumn(name = "uid")
+	@JoinColumn(name = "fromUserName")
 	private List<Message> messages = new ArrayList<Message>();
 
 	public String getOpenId() {

@@ -9,7 +9,7 @@ import com.web.view.impl.template.TemplateViewExpression;
 public class UserListView extends View {
 
 	private List<User> list = null;
-	private String tpl = "<li><a href='admin/$openid'>$openid</a></li>";
+	private String tpl = "<li><a href='user/$openid'>$openid</a></li>";
 	private TemplateViewExpression exp = TemplateViewExpression.compile(tpl);
 
 	public UserListView(List<User> list) {

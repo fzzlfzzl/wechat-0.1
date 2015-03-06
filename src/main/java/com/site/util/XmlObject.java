@@ -66,6 +66,10 @@ public class XmlObject {
 		element.setText(value);
 	}
 
+	public void setText(long value) {
+		element.setText(String.valueOf(value));
+	}
+
 	public void setCDATA(String value) {
 		element.setContent(new CDATA(value));
 	}

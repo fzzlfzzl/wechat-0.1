@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.hibernate.Session;
 import org.junit.Test;
 
+import com.site.util.Util;
 import com.test.util.DbManager;
 import com.web.dao.db.HibernateUtil;
 import com.web.dao.entity.Message;
@@ -62,13 +63,20 @@ public class UserDaoTest {
 		}
 	}
 
+	private Message createMessage() {
+		Message message = new Message();
+		message.setMsgId(Util.random());
+		message.setContent("" + Util.random());
+		message.setCreateTime(System.currentTimeMillis() / 1000);
+		return message;
+	}
+
 	@Test
 	public void messageTest() {
 		try {
-			int messageid = 0;
+			long messageid = 0;
 			// int messageid2 = 0;
 			String openId = "" + System.currentTimeMillis();
-			String content = "content";
 			DbManager.rebase();
 
 			Session session = HibernateUtil.openSession();
@@ -80,25 +88,22 @@ public class UserDaoTest {
 				dao.save(user);
 			}
 			{
-				// 写入message
+				// 写入message 不用在这里设置message的openid
 				User user = dao.get(openId);
-				Message message = new Message();
-				message.setContent(content);
-				message.setOpenId(user.getOpenId());
+				Message message = createMessage();
 				dao.addMessage(user, message);
-				messageid = message.getId();
+				messageid = message.getMsgId();
 			}
 			{
 				// 获取message
 				User user = dao.get(openId);
 				Message message = dao.getMessage(user, 0);
 				assertNotNull(message);
-				assertEquals(content, message.getContent());
-				assertEquals(message.getId(), messageid);
+				assertEquals(message.getMsgId(), messageid);
 			}
 			{
 				// 加入第二个message
-				Message message = new Message();
+				Message message = createMessage();
 				User user = dao.get(openId);
 				dao.addMessage(user, message);
 			}

@@ -265,4 +265,37 @@ public class HtmlTag extends CompositeView {
 			setTag("table");
 		}
 	}
+
+	public static Tr tr() {
+		Tr ret = new Tr();
+		return ret;
+	}
+
+	public static class Tr extends HtmlTag {
+		Tr() {
+			setTag("tr");
+		}
+	}
+
+	public static Td td() {
+		Td ret = new Td();
+		return ret;
+	}
+
+	public static class Td extends HtmlTag {
+		Td() {
+			setTag("td");
+		}
+	}
+
+	public static Th th() {
+		Th ret = new Th();
+		return ret;
+	}
+
+	public static class Th extends HtmlTag {
+		Th() {
+			setTag("th");
+		}
+	}
 }

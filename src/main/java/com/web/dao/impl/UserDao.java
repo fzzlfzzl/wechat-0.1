@@ -70,11 +70,11 @@ public class UserDao extends Dao {
 
 	public Message getMessage(User user, int idx) {
 		try {
-			String hql = "from Message where uid = :uid";
+			String hql = "from Message where fromUserName = :openid";
 			Query query = session.createQuery(hql);
 			query.setFirstResult(idx);
 			query.setMaxResults(1);
-			query.setString("uid", user.getOpenId());
+			query.setString("openid", user.getOpenId());
 			return (Message) query.list().get(0);
 		} catch (RuntimeException e) {
 			throw e;
@@ -83,9 +83,21 @@ public class UserDao extends Dao {
 
 	public int getMessageSize(User user) {
 		try {
-			long ret = (Long) session.createQuery("select count(1) from Message where uid=:uid")
-					.setString("uid", user.getOpenId()).uniqueResult();
+			long ret = (Long) session
+					.createQuery("select count(1) from Message where fromUserName=:openid")
+					.setString("openid", user.getOpenId()).uniqueResult();
 			return (int) ret;
+		} catch (RuntimeException e) {
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Message> getMessages(User user) {
+		try {
+			List<?> list = session.createQuery("from Message where fromUserName=:openid")
+					.setString("openid", user.getOpenId()).list();
+			return (List<Message>) list;
 		} catch (RuntimeException e) {
 			throw e;
 		}

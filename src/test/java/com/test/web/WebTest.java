@@ -59,7 +59,7 @@ public class WebTest {
 		XmlObject req = new XmlObject("xml");
 		req.get("ToUserName").setCDATA(APP_NAME);
 		req.get("FromUserName").setCDATA(USER_NAME);
-		req.get("CreateTime").setText("" + System.currentTimeMillis());
+		req.get("CreateTime").setText("" + System.currentTimeMillis() / 1000);
 		req.get("MsgType").setCDATA("event");
 		req.get("Event").setCDATA("CLICK");
 		req.get("EventKey").setCDATA(key);
@@ -70,7 +70,7 @@ public class WebTest {
 		XmlObject req = new XmlObject("xml");
 		req.get("ToUserName").setCDATA(APP_NAME);
 		req.get("FromUserName").setCDATA(USER_NAME);
-		req.get("CreateTime").setText("" + System.currentTimeMillis());
+		req.get("CreateTime").setText("" + System.currentTimeMillis() / 1000);
 		req.get("MsgType").setCDATA("text");
 		req.get("MsgId").setText("" + System.currentTimeMillis());
 		req.get("Content").setCDATA(content);

@@ -17,8 +17,8 @@ public class SessionTest {
 	@Test
 	public void sessionTest() {
 		try {
-			int messageId = 0;
-			int messageId2 = 0;
+			long messageId = 0;
+			long messageId2 = 0;
 			DbManager.rebase();
 			{
 				// 保存后修改，不保存直接commit
@@ -30,7 +30,7 @@ public class SessionTest {
 				message.setOpenId("2_" + System.currentTimeMillis());
 				session.getTransaction().commit();
 				session.close();
-				messageId = message.getId();
+				messageId = message.getMsgId();
 				// save后commit前就insert了，commit前有修改在commit时会update
 			}
 			{
@@ -55,7 +55,7 @@ public class SessionTest {
 				Message message2 = (Message) session.get(Message.class, messageId);
 				String id2 = message2.getOpenId();
 				session.close();
-				assertEquals(message1.getId(), message2.getId());
+				assertEquals(message1.getMsgId(), message2.getMsgId());
 				// 在session存在时没有使用过那么在session关闭后就不能使用了
 			}
 			{
@@ -68,7 +68,7 @@ public class SessionTest {
 				String id2 = message2.getOpenId();
 				session1.close();
 				session2.close();
-				assertEquals(message1.getId(), message2.getId());
+				assertEquals(message1.getMsgId(), message2.getMsgId());
 				// 在session存在时没有使用过那么在session关闭后就不能使用了
 			}
 			{

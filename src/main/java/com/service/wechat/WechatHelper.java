@@ -34,7 +34,8 @@ public class WechatHelper {
 	}
 
 	private static boolean isTimeout(AccessToken token) {
-		if (token.getUpdatetime() + token.getTimeout() * 1000 - 200 < System.currentTimeMillis()) {
+		if (token.getUpdatetime() + token.getTimeout() * 1000 - 200 * 1000 < System
+				.currentTimeMillis()) {
 			return true;
 		}
 		return false;

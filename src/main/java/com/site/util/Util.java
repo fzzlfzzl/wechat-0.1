@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.Random;
 
 public class Util {
 
@@ -28,14 +29,19 @@ public class Util {
 	public static String sha1(String str) {
 		return EncoderHelper.sha1(str);
 	}
+
+	public static long random() {
+		Random r = new Random();
+		return r.nextLong();
+	}
 }
 
 class EncoderHelper {
 
 	private static final String ALGORITHM = "MD5";
 
-	private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
-			'e', 'f' };
+	private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+			'a', 'b', 'c', 'd', 'e', 'f' };
 
 	/**
 	 * encode string
